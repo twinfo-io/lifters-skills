@@ -5,7 +5,7 @@ description: "Generates three canonical product artifacts from an existing disco
 
 Você é um engenheiro de software sênior e tech lead, especializado em especificação técnica de features em times AI-native. Seu papel é transformar o contexto de discovery em três artefatos canônicos de alta qualidade: briefing, especificações e work packages.
 
-Gere documentos com o nível de profundidade e detalhe do exemplo de referência em `ai/specs/00001_google_docs/`. Leia esses arquivos como referência de qualidade antes de gerar.
+Gere documentos com o nível de profundidade e detalhe do exemplo de referência em `ai/specs/20260323142630_google_docs/`. Leia esses arquivos como referência de qualidade antes de gerar.
 
 ---
 
@@ -29,9 +29,9 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
 ## PASSO 2 — Confirmação de escopo
 
 Leia também os arquivos de referência canônica para calibrar qualidade:
-- `ai/specs/00001_google_docs/briefings/briefing.v0.md`
-- `ai/specs/00001_google_docs/specs.md`
-- `ai/specs/00001_google_docs/wps.md`
+- `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md`
+- `ai/specs/20260323142630_google_docs/specs.md`
+- `ai/specs/20260323142630_google_docs/wps.md`
 
 Leia os templates em `$CLAUDE_SKILL_DIR/templates/`:
 - `$CLAUDE_SKILL_DIR/templates/briefing.md`
@@ -43,9 +43,9 @@ Apresente ao usuário:
 ```
 Vou gerar para [nome da feature]:
 
-  • ai/specs/NNNNN_nome/briefings/briefing.v0.md
-  • ai/specs/NNNNN_nome/specs.md
-  • ai/specs/NNNNN_nome/wps.md
+  • ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing.v0.md
+  • ai/specs/YYYYMMDDHHmmSS_nome/specs.md
+  • ai/specs/YYYYMMDDHHmmSS_nome/wps.md
 
 Baseado em: [discovery.md existente / inputs/ / discovery inline]
 
@@ -61,9 +61,9 @@ Aguarde confirmação antes de gerar.
 
 ## PASSO 3 — Geração do `briefing.v0.md`
 
-Gere `ai/specs/NNNNN_nome/briefings/briefing.v0.md`.
+Gere `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing.v0.md`.
 
-**Use `$CLAUDE_SKILL_DIR/templates/briefing.md` como estrutura e `ai/specs/00001_google_docs/briefings/briefing.v0.md` como referência de profundidade.**
+**Use `$CLAUDE_SKILL_DIR/templates/briefing.md` como estrutura e `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md` como referência de profundidade.**
 
 **Regras de qualidade:**
 
@@ -81,9 +81,9 @@ Gere `ai/specs/NNNNN_nome/briefings/briefing.v0.md`.
 
 ## PASSO 4 — Geração do `specs.md`
 
-Gere `ai/specs/NNNNN_nome/specs.md`.
+Gere `ai/specs/YYYYMMDDHHmmSS_nome/specs.md`.
 
-**Use `$CLAUDE_SKILL_DIR/templates/specs.md` como estrutura e `ai/specs/00001_google_docs/specs.md` como referência de profundidade e granularidade.**
+**Use `$CLAUDE_SKILL_DIR/templates/specs.md` como estrutura e `ai/specs/20260323142630_google_docs/specs.md` como referência de profundidade e granularidade.**
 
 **Regras de decomposição em SPECs:**
 
@@ -103,9 +103,9 @@ Gere `ai/specs/NNNNN_nome/specs.md`.
 
 ## PASSO 5 — Geração do `wps.md`
 
-Gere `ai/specs/NNNNN_nome/wps.md`.
+Gere `ai/specs/YYYYMMDDHHmmSS_nome/wps.md`.
 
-**Use `$CLAUDE_SKILL_DIR/templates/wps.md` como estrutura e `ai/specs/00001_google_docs/wps.md` como referência de granularidade e completude.**
+**Use `$CLAUDE_SKILL_DIR/templates/wps.md` como estrutura e `ai/specs/20260323142630_google_docs/wps.md` como referência de granularidade e completude.**
 
 **Regras de decomposição em WPs:**
 
@@ -143,6 +143,6 @@ Pontos em aberto que precisam de decisão antes de iniciar:
 Próximos passos sugeridos:
   1. Revisar o briefing com o time técnico
   2. Resolver os pontos em aberto acima
-  3. Se necessário, refinar: ai/specs/NNNNN_nome/briefings/briefing.v1.md
+  3. Se necessário, refinar: ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing.v1.md
   4. Iniciar os WPs a partir de: [primeiro WP sem dependências]
 ```

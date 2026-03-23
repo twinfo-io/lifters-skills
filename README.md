@@ -53,12 +53,12 @@ Inicia o processo de discovery de uma nova feature. Conduz uma entrevista estrut
 
 **O que acontece:**
 1. Coleta documentos de entrada (URL, paste, múltiplos arquivos) **antes** de criar qualquer pasta
-2. Cria a estrutura `ai/specs/NNNNN_nome/` com os inputs salvos
+2. Cria a estrutura `ai/specs/YYYYMMDDHHmmSS_nome/` com os inputs salvos
 3. Extrai contexto dos documentos e apresenta o entendimento para confirmação
 4. Conduz entrevista adaptada: brownfield (produto existente) ou greenfield (projeto novo)
 5. Faz perguntas apenas sobre lacunas — o que já foi respondido pelos inputs é ignorado
 6. Pesquisa automaticamente referências de mercado (WebSearch) e valida com o usuário
-7. Gera `ai/specs/NNNNN_nome/discovery.md`
+7. Gera `ai/specs/YYYYMMDDHHmmSS_nome/discovery.md`
 
 **Regra crítica:** campos não respondidos viram `⚠️ Ponto em aberto` — a skill nunca inventa valores.
 
@@ -74,7 +74,7 @@ Gera os três artefatos canônicos da feature a partir do `discovery.md` existen
 
 **O que gera:**
 ```
-ai/specs/NNNNN_nome/
+ai/specs/YYYYMMDDHHmmSS_nome/
 ├── briefings/
 │   └── briefing.v0.md    ← 15 seções canônicas
 ├── specs.md              ← SPECs com critérios de aceite DADO/QUANDO/ENTÃO
@@ -86,7 +86,7 @@ ai/specs/NNNNN_nome/
 ## Estrutura gerada por feature
 
 ```
-ai/specs/NNNNN_nome_da_feature/
+ai/specs/YYYYMMDDHHmmSS_nome_da_feature/
 ├── inputs/                     ← documentos de entrada fornecidos pelo PM
 │   ├── input-01.md             ← conteúdo de URL ou paste (salvo pela skill)
 │   └── input-02.md
@@ -122,7 +122,7 @@ lifters-skills/
 │           ├── specs.md         ← 12 seções por SPEC-XX
 │           └── wps.md           ← campos e seções por Wp-XX
 └── ai/specs/                    ← specs internas do próprio repositório
-    └── 00001_google_docs/       ← referência canônica de qualidade (não modificar)
+    └── 20260323142630_google_docs/       ← referência canônica de qualidade (não modificar)
 ```
 
 ---
@@ -153,6 +153,6 @@ Convenção de nomes: `kebab-case`, verbos no imperativo em inglês (`gen-docs`,
 
 Os templates e skills usam os arquivos abaixo como exemplos de qualidade — **não modificar**:
 
-- `ai/specs/00001_google_docs/briefings/briefing.v0.md`
-- `ai/specs/00001_google_docs/specs.md`
-- `ai/specs/00001_google_docs/wps.md`
+- `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md`
+- `ai/specs/20260323142630_google_docs/specs.md`
+- `ai/specs/20260323142630_google_docs/wps.md`

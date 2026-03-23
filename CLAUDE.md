@@ -34,16 +34,16 @@ Starts an interactive feature discovery. Collects input documents first (URLs, p
 /discovery   # without argument — asks for description first
 ```
 
-Output: `ai/specs/NNNNN_nome/discovery.md`
+Output: `ai/specs/YYYYMMDDHHmmSS_nome/discovery.md`
 
 ### `/new-feature`
 
 Reads an existing `discovery.md` (or conducts inline discovery if none exists) and generates the three canonical artifacts.
 
 Output:
-- `ai/specs/NNNNN_nome/briefings/briefing.v0.md`
-- `ai/specs/NNNNN_nome/specs.md`
-- `ai/specs/NNNNN_nome/wps.md`
+- `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing.v0.md`
+- `ai/specs/YYYYMMDDHHmmSS_nome/specs.md`
+- `ai/specs/YYYYMMDDHHmmSS_nome/wps.md`
 
 ## Repository Structure
 
@@ -63,13 +63,13 @@ lifters-skills/
 │           ├── specs.md      ← 12-section SPEC-XX template
 │           └── wps.md        ← Wp-XX fields and sections template
 └── ai/specs/            ← feature specs for this repository
-    └── 00001_google_docs/   ← canonical reference (do not modify)
+    └── 20260323142630_google_docs/   ← canonical reference (do not modify)
 ```
 
 ## Spec Folder Structure (per feature)
 
 ```
-ai/specs/NNNNN_feature_name/
+ai/specs/YYYYMMDDHHmmSS_feature_name/
 ├── inputs/              ← input documents collected during /discovery
 │   └── input-01.md      ← saved URL fetch or pasted content
 ├── briefings/
@@ -85,9 +85,9 @@ ai/specs/NNNNN_feature_name/
 
 All generated files must follow the format of these reference files — **do not modify them**:
 
-- `ai/specs/00001_google_docs/briefings/briefing.v0.md` — briefing quality reference
-- `ai/specs/00001_google_docs/specs.md` — spec format reference
-- `ai/specs/00001_google_docs/wps.md` — work package format reference
+- `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md` — briefing quality reference
+- `ai/specs/20260323142630_google_docs/specs.md` — spec format reference
+- `ai/specs/20260323142630_google_docs/wps.md` — work package format reference
 
 ## Spec Format
 

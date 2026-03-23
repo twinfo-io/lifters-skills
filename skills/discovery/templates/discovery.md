@@ -1,6 +1,6 @@
 # Discovery — [Nome da Feature]
 
-> **Feature:** NNNNN_nome
+> **Feature:** YYYYMMDDHHmmSS_nome
 > **Data:** YYYY-MM-DD
 > **Autor:** [nome / papel]
 > **Status:** Em andamento | Completo

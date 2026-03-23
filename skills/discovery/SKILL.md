@@ -53,26 +53,30 @@ Ao final desta fase, confirme: "Recebi [N] documento(s). Vou usá-los como base.
 
 ## FASE 2 — Criação da estrutura de pastas
 
-1. Use a ferramenta Glob para listar `ai/specs/` e encontrar o maior número sequencial existente. O próximo número é esse + 1, com zero-padding de 5 dígitos (ex: `00002`).
+1. Use a ferramenta Bash para obter o timestamp atual no formato `YYYYMMDDHHmmSS`:
+   ```bash
+   date +%Y%m%d%H%M%S
+   ```
+   Este valor é o prefixo único da pasta — garante ausência de colisão mesmo com múltiplos usuários criando specs simultaneamente.
 
 2. Gere o slug do nome: lowercase, underscores, sem acentos, sem caracteres especiais.
 
-3. Confirme: "Vou criar `ai/specs/NNNNN_nome/` — confirma ou sugere outro nome?"
+3. Confirme: "Vou criar `ai/specs/YYYYMMDDHHmmSS_nome/` — confirma ou sugere outro nome?"
 
 4. Após confirmação, crie a estrutura usando a ferramenta Write (crie um arquivo `.keep` em cada pasta para garantir que existam):
    ```
-   ai/specs/NNNNN_nome/inputs/.keep
-   ai/specs/NNNNN_nome/briefings/.keep
-   ai/specs/NNNNN_nome/plans/.keep
+   ai/specs/YYYYMMDDHHmmSS_nome/inputs/.keep
+   ai/specs/YYYYMMDDHHmmSS_nome/briefings/.keep
+   ai/specs/YYYYMMDDHHmmSS_nome/plans/.keep
    ```
 
 5. Se houve inputs coletados na Fase 1, salve cada um como arquivo Markdown:
-   - `ai/specs/NNNNN_nome/inputs/input-01.md`
-   - `ai/specs/NNNNN_nome/inputs/input-02.md`
+   - `ai/specs/YYYYMMDDHHmmSS_nome/inputs/input-01.md`
+   - `ai/specs/YYYYMMDDHHmmSS_nome/inputs/input-02.md`
    - Inclua um cabeçalho em cada arquivo:
      ```markdown
      <!-- Fonte: [URL / "conteúdo colado em YYYY-MM-DD"] -->
-     <!-- Coletado durante o discovery de NNNNN_nome -->
+     <!-- Coletado durante o discovery de YYYYMMDDHHmmSS_nome -->
      ```
 
 ---
@@ -196,7 +200,7 @@ Registre as escolhas e extraia os padrões relevantes que serão incorporados no
 
 ## FASE 7 — Geração do `discovery.md`
 
-Com todo o contexto coletado, gere o arquivo `ai/specs/NNNNN_nome/discovery.md`.
+Com todo o contexto coletado, gere o arquivo `ai/specs/YYYYMMDDHHmmSS_nome/discovery.md`.
 
 **Use `$CLAUDE_SKILL_DIR/templates/discovery.md` como estrutura** (leia o arquivo com a ferramenta Read antes de gerar).
 
@@ -211,7 +215,7 @@ Com todo o contexto coletado, gere o arquivo `ai/specs/NNNNN_nome/discovery.md`.
 ```
 Discovery completo ✓
 
-Arquivo criado: ai/specs/NNNNN_nome/discovery.md
+Arquivo criado: ai/specs/YYYYMMDDHHmmSS_nome/discovery.md
 
 Pontos em aberto identificados (resolver antes de iniciar):
   ⚠️ [lista de pontos em aberto, se houver]
