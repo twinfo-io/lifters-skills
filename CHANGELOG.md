@@ -7,6 +7,40 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [1.1.0] - 2026-03-23
+
+### Changed
+
+- Migração completa para o padrão **Agent Skills** (`agentskills.io`), compatível com
+  skills.sh, Claude Code, Cursor, GitHub Copilot e 30+ outros agentes.
+
+- `commands/discovery.md` e `commands/new-feature.md` migrados para
+  `skills/discovery/SKILL.md` e `skills/new-feature/SKILL.md` com frontmatter
+  YAML padronizado (`name`, `description`, `argument-hint`).
+
+- Templates movidos de `templates/` global para dentro de cada skill:
+  - `skills/discovery/templates/discovery.md`
+  - `skills/new-feature/templates/briefing.md`
+  - `skills/new-feature/templates/specs.md`
+  - `skills/new-feature/templates/wps.md`
+
+- Referências de template dentro das skills atualizadas para usar `$CLAUDE_SKILL_DIR/templates/`
+  (resolução correta independente do diretório de instalação).
+
+- `install.sh` atualizado: instala de `skills/*/` para `~/.claude/skills/<nome>/`
+  (padrão Agent Skills) em vez do legado `~/.claude/commands/`.
+
+- `skills.json` atualizado: versão `1.1.0`, caminhos apontam para `skills/*/SKILL.md`.
+
+- `README.md` e `CLAUDE.md` atualizados com a nova estrutura.
+
+### Removed
+
+- Diretório `commands/` (conteúdo migrado para `skills/`)
+- Diretório `templates/` (conteúdo migrado para `skills/*/templates/`)
+
+---
+
 ## [1.0.0] - 2025-03-23
 
 ### Added

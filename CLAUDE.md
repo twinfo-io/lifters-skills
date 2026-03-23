@@ -10,6 +10,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 2. **Specification workspace** — Houses the `ai/specs/` directory where feature specs for this repository itself are maintained.
 
+## Format
+
+This repository follows the **Agent Skills** standard (`agentskills.io`). Each skill lives in its own directory under `skills/` with a `SKILL.md` file containing YAML frontmatter and the skill instructions.
+
 ## Installation
 
 ```bash
@@ -17,7 +21,7 @@ npx skills add twinfo-io/lifters-skills       # via registry (recommended)
 curl -sSL https://raw.githubusercontent.com/twinfo-io/lifters-skills/main/install.sh | bash  # fallback
 ```
 
-Skills are installed to `~/.claude/commands/` (user-level) — not project-level.
+Skills are installed to `~/.claude/skills/` (user-level) — not project-level.
 
 ## Commands
 
@@ -47,14 +51,17 @@ Output:
 lifters-skills/
 ├── skills.json          ← registry manifest (npx skills add twinfo-io/lifters-skills)
 ├── install.sh           ← curl | bash installation fallback
-├── commands/
-│   ├── discovery.md     ← /discovery command logic
-│   └── new-feature.md   ← /new-feature command logic
-├── templates/
-│   ├── discovery.md     ← discovery artifact structure
-│   ├── briefing.md      ← 15-section briefing template
-│   ├── specs.md         ← 12-section SPEC-XX template
-│   └── wps.md           ← Wp-XX fields and sections template
+├── skills/
+│   ├── discovery/
+│   │   ├── SKILL.md     ← /discovery skill (frontmatter + instructions)
+│   │   └── templates/
+│   │       └── discovery.md  ← discovery artifact template
+│   └── new-feature/
+│       ├── SKILL.md     ← /new-feature skill (frontmatter + instructions)
+│       └── templates/
+│           ├── briefing.md   ← 15-section briefing template
+│           ├── specs.md      ← 12-section SPEC-XX template
+│           └── wps.md        ← Wp-XX fields and sections template
 └── ai/specs/            ← feature specs for this repository
     └── 00001_google_docs/   ← canonical reference (do not modify)
 ```
@@ -99,9 +106,18 @@ File footer (mandatory): Mapa de Dependências · Riscos e Pontos Desconhecidos 
 
 ## Adding New Skills
 
-1. Create `commands/skill-name.md` with the command instructions
-2. Add the entry to `skills.json`
-3. Document in `README.md` and `CHANGELOG.md`
-4. Open a PR for team review
+1. Create `skills/skill-name/SKILL.md` with YAML frontmatter (`name` + `description`) and the skill instructions
+2. Add templates to `skills/skill-name/templates/` if needed
+3. Add the entry to `skills.json`
+4. Document in `README.md` and `CHANGELOG.md`
+5. Open a PR for team review
+
+**Required frontmatter:**
+```yaml
+---
+name: skill-name
+description: What it does and when to use it (max 1024 chars, no XML tags)
+---
+```
 
 Naming convention: `kebab-case`, imperative English verbs (`gen-docs`, `review-pr`).
