@@ -1,4 +1,4 @@
-<!-- TEMPLATE DE WORK PACKAGES — lifters-ai
+<!-- TEMPLATE DE WORK PACKAGES — lifters-skills
      Um Wp-XX por unidade de trabalho coesa (entregável por um dev em 1-3 dias).
      IDs sequenciais globais — continuar a partir do último Wp- existente no repositório.
      Campos marcados com [NOVO] foram adicionados ao formato canônico.

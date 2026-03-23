@@ -1,4 +1,4 @@
-# lifters-ai
+# lifters-skills
 
 Skills de Claude Code para times de produto da Lifters. Padroniza o processo de criação de features — do discovery inicial à geração de briefing, especificações e work packages — em todos os projetos da empresa.
 
@@ -8,18 +8,18 @@ Skills de Claude Code para times de produto da Lifters. Padroniza o processo de 
 
 **Via registry (recomendado):**
 ```bash
-npx skills add lifters/lifters-ai
+npx skills add twinfo-io/lifters-skills
 ```
 
 **Via script (fallback):**
 ```bash
-curl -sSL https://raw.githubusercontent.com/lifters/lifters-ai/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/twinfo-io/lifters-skills/main/install.sh | bash
 ```
 
 **Via clone local (para contribuição):**
 ```bash
-git clone https://github.com/lifters/lifters-ai.git ~/.lifters-ai
-bash ~/.lifters-ai/install.sh
+git clone https://github.com/twinfo-io/lifters-skills.git ~/.lifters-skills
+bash ~/.lifters-skills/install.sh
 ```
 
 As skills são instaladas em `~/.claude/commands/` e ficam disponíveis em **todos os projetos** da máquina.
@@ -29,7 +29,7 @@ As skills são instaladas em `~/.claude/commands/` e ficam disponíveis em **tod
 ## Atualização
 
 ```bash
-npx skills update lifters/lifters-ai
+npx skills update twinfo-io/lifters-skills
 ```
 
 ---
@@ -99,7 +99,7 @@ ai/specs/NNNNN_nome_da_feature/
 ## Estrutura do repositório
 
 ```
-lifters-ai/
+lifters-skills/
 ├── skills.json           ← manifesto para npx skills add
 ├── install.sh            ← instalação via curl | bash
 ├── README.md

@@ -1,4 +1,4 @@
-<!-- TEMPLATE DE ESPECIFICAÇÕES — lifters-ai
+<!-- TEMPLATE DE ESPECIFICAÇÕES — lifters-skills
      Uma entrada SPEC-XX por domínio de responsabilidade.
      Copiar este bloco para cada SPEC e preencher todas as seções.
      Seções marcadas com [NOVO] foram adicionadas ao formato canônico.

@@ -1,9 +1,9 @@
 {
-  "name": "lifters-ai",
+  "name": "lifters-skills",
   "version": "1.0.0",
   "description": "AI-native product development skills for Lifters teams",
-  "author": "lifters",
-  "repository": "https://github.com/lifters/lifters-ai",
+  "author": "twinfo-io",
+  "repository": "https://github.com/twinfo-io/lifters-skills",
   "skills": [
     {
       "name": "discovery",

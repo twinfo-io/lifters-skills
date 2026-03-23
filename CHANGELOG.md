@@ -26,4 +26,4 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - `install.sh` — script de instalação via symlinks para `~/.claude/commands/`.
 
-- `skills.json` — manifesto para distribuição via `npx skills add lifters/lifters-ai`.
+- `skills.json` — manifesto para distribuição via `npx skills add twinfo-io/lifters-skills`.

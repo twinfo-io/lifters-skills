@@ -4,17 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-`lifters-ai` is the central repository of Claude Code skills for Lifters teams. It serves two purposes:
+`lifters-skills` is the central repository of Claude Code skills for Lifters teams. It serves two purposes:
 
-1. **Skills distribution** — Claude Code commands (`/discovery`, `/new-feature`) installed company-wide via `npx skills add lifters/lifters-ai`, available in every project on the developer's machine.
+1. **Skills distribution** — Claude Code commands (`/discovery`, `/new-feature`) installed company-wide via `npx skills add twinfo-io/lifters-skills`, available in every project on the developer's machine.
 
 2. **Specification workspace** — Houses the `ai/specs/` directory where feature specs for this repository itself are maintained.
 
 ## Installation
 
 ```bash
-npx skills add lifters/lifters-ai       # via registry (recommended)
-curl -sSL https://raw.githubusercontent.com/lifters/lifters-ai/main/install.sh | bash  # fallback
+npx skills add twinfo-io/lifters-skills       # via registry (recommended)
+curl -sSL https://raw.githubusercontent.com/twinfo-io/lifters-skills/main/install.sh | bash  # fallback
 ```
 
 Skills are installed to `~/.claude/commands/` (user-level) — not project-level.
@@ -44,8 +44,8 @@ Output:
 ## Repository Structure
 
 ```
-lifters-ai/
-├── skills.json          ← registry manifest (npx skills add lifters/lifters-ai)
+lifters-skills/
+├── skills.json          ← registry manifest (npx skills add twinfo-io/lifters-skills)
 ├── install.sh           ← curl | bash installation fallback
 ├── commands/
 │   ├── discovery.md     ← /discovery command logic
