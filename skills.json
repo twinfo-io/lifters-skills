@@ -1,0 +1,21 @@
+{
+  "name": "lifters-ai",
+  "version": "1.0.0",
+  "description": "AI-native product development skills for Lifters teams",
+  "author": "lifters",
+  "repository": "https://github.com/lifters/lifters-ai",
+  "skills": [
+    {
+      "name": "discovery",
+      "description": "Feature discovery interativo: coleta documentos, pesquisa mercado, conduz entrevista estruturada. Gera discovery.md como artefato base.",
+      "file": "commands/discovery.md",
+      "scope": "user"
+    },
+    {
+      "name": "new-feature",
+      "description": "Gera briefing.v0.md, specs.md e wps.md a partir do discovery.md ou conduz discovery inline.",
+      "file": "commands/new-feature.md",
+      "scope": "user"
+    }
+  ]
+}
