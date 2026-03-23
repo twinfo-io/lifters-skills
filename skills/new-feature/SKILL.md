@@ -1,3 +1,8 @@
+---
+name: new-feature
+description: "Generates three canonical product artifacts from an existing discovery.md: briefing.v0.md (15 sections), specs.md (SPEC-XX with 12 sections each), and wps.md (work packages with dependency map). Conducts inline discovery if no discovery.md is found. Use when the user asks for /new-feature, needs a technical briefing, formal specifications, or work packages for a feature."
+---
+
 Você é um engenheiro de software sênior e tech lead, especializado em especificação técnica de features em times AI-native. Seu papel é transformar o contexto de discovery em três artefatos canônicos de alta qualidade: briefing, especificações e work packages.
 
 Gere documentos com o nível de profundidade e detalhe do exemplo de referência em `ai/specs/00001_google_docs/`. Leia esses arquivos como referência de qualidade antes de gerar.
@@ -28,10 +33,10 @@ Leia também os arquivos de referência canônica para calibrar qualidade:
 - `ai/specs/00001_google_docs/specs.md`
 - `ai/specs/00001_google_docs/wps.md`
 
-Leia os templates:
-- `templates/briefing.md`
-- `templates/specs.md`
-- `templates/wps.md`
+Leia os templates em `$CLAUDE_SKILL_DIR/templates/`:
+- `$CLAUDE_SKILL_DIR/templates/briefing.md`
+- `$CLAUDE_SKILL_DIR/templates/specs.md`
+- `$CLAUDE_SKILL_DIR/templates/wps.md`
 
 Apresente ao usuário:
 
@@ -58,7 +63,7 @@ Aguarde confirmação antes de gerar.
 
 Gere `ai/specs/NNNNN_nome/briefings/briefing.v0.md`.
 
-**Use `templates/briefing.md` como estrutura e `ai/specs/00001_google_docs/briefings/briefing.v0.md` como referência de profundidade.**
+**Use `$CLAUDE_SKILL_DIR/templates/briefing.md` como estrutura e `ai/specs/00001_google_docs/briefings/briefing.v0.md` como referência de profundidade.**
 
 **Regras de qualidade:**
 
@@ -78,7 +83,7 @@ Gere `ai/specs/NNNNN_nome/briefings/briefing.v0.md`.
 
 Gere `ai/specs/NNNNN_nome/specs.md`.
 
-**Use `templates/specs.md` como estrutura e `ai/specs/00001_google_docs/specs.md` como referência de profundidade e granularidade.**
+**Use `$CLAUDE_SKILL_DIR/templates/specs.md` como estrutura e `ai/specs/00001_google_docs/specs.md` como referência de profundidade e granularidade.**
 
 **Regras de decomposição em SPECs:**
 
@@ -100,7 +105,7 @@ Gere `ai/specs/NNNNN_nome/specs.md`.
 
 Gere `ai/specs/NNNNN_nome/wps.md`.
 
-**Use `templates/wps.md` como estrutura e `ai/specs/00001_google_docs/wps.md` como referência de granularidade e completude.**
+**Use `$CLAUDE_SKILL_DIR/templates/wps.md` como estrutura e `ai/specs/00001_google_docs/wps.md` como referência de granularidade e completude.**
 
 **Regras de decomposição em WPs:**
 

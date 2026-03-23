@@ -1,20 +1,20 @@
 {
   "name": "lifters-skills",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "AI-native product development skills for Lifters teams",
   "author": "twinfo-io",
   "repository": "https://github.com/twinfo-io/lifters-skills",
   "skills": [
     {
       "name": "discovery",
-      "description": "Feature discovery interativo: coleta documentos, pesquisa mercado, conduz entrevista estruturada. Gera discovery.md como artefato base.",
-      "file": "commands/discovery.md",
+      "description": "Interactive feature discovery for product development teams. Conducts a structured 7-phase interview, collects reference documents, researches market benchmarks, and generates a discovery.md artifact.",
+      "file": "skills/discovery/SKILL.md",
       "scope": "user"
     },
     {
       "name": "new-feature",
-      "description": "Gera briefing.v0.md, specs.md e wps.md a partir do discovery.md ou conduz discovery inline.",
-      "file": "commands/new-feature.md",
+      "description": "Generates three canonical product artifacts from an existing discovery.md: briefing.v0.md (15 sections), specs.md (SPEC-XX with 12 sections each), and wps.md (work packages with dependency map).",
+      "file": "skills/new-feature/SKILL.md",
       "scope": "user"
     }
   ]
