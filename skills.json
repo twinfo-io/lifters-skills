@@ -6,15 +6,21 @@
   "repository": "https://github.com/twinfo-io/lifters-skills",
   "skills": [
     {
-      "name": "discovery",
+      "name": "lf-discovery",
       "description": "Interactive feature discovery for product development teams. Conducts a structured 7-phase interview, collects reference documents, researches market benchmarks, and generates a discovery.md artifact.",
-      "file": "skills/discovery/SKILL.md",
+      "file": "skills/lf-discovery/SKILL.md",
       "scope": "user"
     },
     {
-      "name": "new-feature",
+      "name": "lf-new-feature",
       "description": "Generates three canonical product artifacts from an existing discovery.md: briefing.v0.md (15 sections), specs.md (SPEC-XX with 12 sections each), and wps.md (work packages with dependency map).",
-      "file": "skills/new-feature/SKILL.md",
+      "file": "skills/lf-new-feature/SKILL.md",
+      "scope": "user"
+    },
+    {
+      "name": "lf-design-system",
+      "description": "Connects to Figma via MCP Server, extracts typography, colors, spacing, border radius, shadows and all design token definitions, and generates specs/design-system.md — the official design system source of truth for the project. Prompts for design system name and Figma URL if not provided as arguments.",
+      "file": "skills/lf-design-system/SKILL.md",
       "scope": "user"
     }
   ]

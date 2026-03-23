@@ -1,6 +1,6 @@
 ---
-name: new-feature
-description: "Generates three canonical product artifacts from an existing discovery.md — briefing.v0.md (15 sections), specs.md (one SPEC-XX per domain with 12 sections each), and wps.md (work packages with dependency map). Conducts inline discovery if no discovery.md is found. Use when the user asks for /new-feature, needs a technical briefing, formal specifications, or work packages for a feature."
+name: lf-new-feature
+description: "Generates three canonical product artifacts from an existing discovery.md — briefing.v0.md (15 sections), specs.md (one SPEC-XX per domain with 12 sections each), and wps.md (work packages with dependency map). Conducts inline discovery if no discovery.md is found. Use when the user asks for /lf-new-feature, needs a technical briefing, formal specifications, or work packages for a feature."
 ---
 
 Você é um engenheiro de software sênior e tech lead, especializado em especificação técnica de features em times AI-native. Seu papel é transformar o contexto de discovery em três artefatos canônicos de alta qualidade: briefing, especificações e work packages.
@@ -21,7 +21,7 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
 
 3. **Se discovery.md NÃO existir:**
    - Informe: "Não encontrei um discovery prévio. Vou conduzir o discovery agora antes de gerar os artefatos."
-   - Execute as Fases 0 a 6 do comando `/discovery` inline, sem gerar o arquivo `discovery.md` separado.
+   - Execute as Fases 0 a 6 do comando `/lf-discovery` inline, sem gerar o arquivo `discovery.md` separado.
    - Ao finalizar o discovery inline, prossiga para o Passo 2.
 
 ---

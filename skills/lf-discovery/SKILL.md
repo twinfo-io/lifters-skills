@@ -1,6 +1,6 @@
 ---
-name: discovery
-description: "Interactive feature discovery for product development teams. Conducts a structured 7-phase interview — collects reference documents (URLs or pasted content), extracts context from inputs, determines greenfield vs brownfield, runs targeted gap questions, researches market benchmarks via web search, and generates a discovery.md artifact. Use when starting a new feature, planning a product initiative, or when the user runs /discovery."
+name: lf-discovery
+description: "Interactive feature discovery for product development teams. Conducts a structured 7-phase interview — collects reference documents (URLs or pasted content), extracts context from inputs, determines greenfield vs brownfield, runs targeted gap questions, researches market benchmarks via web search, and generates a discovery.md artifact. Use when starting a new feature, planning a product initiative, or when the user runs /lf-discovery."
 metadata:
   argument-hint: "[feature description]"
 ---
@@ -221,5 +221,5 @@ Pontos em aberto identificados (resolver antes de iniciar):
   ⚠️ [lista de pontos em aberto, se houver]
 
 Próximo passo:
-  Execute /new-feature para gerar briefing, specs e work packages.
+  Execute /lf-new-feature para gerar briefing, specs e work packages.
 ```

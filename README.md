@@ -41,14 +41,14 @@ npx skills update
 
 ## Skills
 
-### `/discovery [feature description]`
+### `/lf-discovery [feature description]`
 
 Inicia o processo de discovery de uma nova feature. Conduz uma entrevista estruturada em 7 fases e gera `discovery.md` como artefato base.
 
 ```bash
-/discovery "Cobrança recorrente com Stripe"
+/lf-discovery "Cobrança recorrente com Stripe"
 # ou sem argumento — a skill pergunta o nome
-/discovery
+/lf-discovery
 ```
 
 **O que acontece:**
@@ -64,12 +64,12 @@ Inicia o processo de discovery de uma nova feature. Conduz uma entrevista estrut
 
 ---
 
-### `/new-feature`
+### `/lf-new-feature`
 
 Gera os três artefatos canônicos da feature a partir do `discovery.md` existente. Se não houver discovery prévio, conduz o discovery inline.
 
 ```bash
-/new-feature
+/lf-new-feature
 ```
 
 **O que gera:**
@@ -83,6 +83,36 @@ ai/specs/YYYYMMDDHHmmSS_nome/
 
 ---
 
+### `/lf-design-system ["Nome do DS" figma-url]`
+
+Conecta ao Figma via MCP Server, extrai todos os tokens de design (tipografia, cores, espaçamento, border radius, sombras) e gera `specs/design-system.md` — a fonte de verdade visual oficial do projeto.
+
+```bash
+/lf-design-system "Atlas" https://figma.com/design/abc123/Atlas?node-id=3-281
+# ou sem argumentos — a skill pergunta nome e URL
+/lf-design-system
+```
+
+**Pré-requisito:** o Figma MCP Server deve estar configurado e autenticado nas configurações do Claude Code.
+
+**O que acontece:**
+1. Verifica a conexão com o Figma MCP (`whoami`) — aborta com orientação de setup se não conectado
+2. Coleta nome do design system e URL do Figma (via argumento ou interativamente)
+3. Avisa se `specs/design-system.md` já existe e pergunta se deve sobrescrever ou abortar
+4. Extrai dados do Figma: mapa estrutural (`get_metadata`), tokens formalizados (`get_variable_defs`) e contexto detalhado nos nodes de tipografia e cores (`get_design_context`)
+5. Gera `specs/design-system.md` com 15 seções, incluindo os node IDs utilizados e notas de interpretação para ambiguidades encontradas
+
+**O que gera:**
+```
+specs/
+└── design-system.md    ← fonte de verdade com tipografia, cores, espaçamento,
+                           border radius, sombras e CSS custom properties
+```
+
+**Regra crítica:** em caso de conflito entre implementação local e o `design-system.md`, o Figma e este arquivo vencem.
+
+---
+
 ## Estrutura gerada por feature
 
 ```
@@ -91,10 +121,10 @@ ai/specs/YYYYMMDDHHmmSS_nome_da_feature/
 │   ├── input-01.md             ← conteúdo de URL ou paste (salvo pela skill)
 │   └── input-02.md
 ├── briefings/
-│   ├── briefing.v0.md          ← gerado pelo /new-feature
+│   ├── briefing.v0.md          ← gerado pelo /lf-new-feature
 │   └── briefing.v1.md          ← refinamento após review do time
 ├── plans/                      ← planos de execução (opcional)
-├── discovery.md                ← gerado pelo /discovery
+├── discovery.md                ← gerado pelo /lf-discovery
 ├── specs.md                    ← especificações formais
 └── wps.md                      ← work packages com dependências e estimativas
 ```
@@ -111,16 +141,20 @@ lifters-skills/
 ├── CHANGELOG.md
 ├── PUBLISHING.md                ← guia de publicação no skills.sh
 ├── skills/
-│   ├── discovery/
-│   │   ├── SKILL.md             ← /discovery (frontmatter + lógica da skill)
+│   ├── lf-discovery/
+│   │   ├── SKILL.md             ← /lf-discovery (frontmatter + lógica da skill)
 │   │   └── templates/
 │   │       └── discovery.md     ← estrutura do artefato discovery
-│   └── new-feature/
-│       ├── SKILL.md             ← /new-feature (frontmatter + lógica da skill)
+│   ├── lf-new-feature/
+│   │   ├── SKILL.md             ← /lf-new-feature (frontmatter + lógica da skill)
+│   │   └── templates/
+│   │       ├── briefing.md      ← 15 seções canônicas do briefing
+│   │       ├── specs.md         ← 12 seções por SPEC-XX
+│   │       └── wps.md           ← campos e seções por Wp-XX
+│   └── lf-design-system/
+│       ├── SKILL.md             ← /lf-design-system (frontmatter + lógica da skill)
 │       └── templates/
-│           ├── briefing.md      ← 15 seções canônicas do briefing
-│           ├── specs.md         ← 12 seções por SPEC-XX
-│           └── wps.md           ← campos e seções por Wp-XX
+│           └── design-system.md ← 15 seções do design system
 └── ai/specs/                    ← specs internas do próprio repositório
     └── 20260323142630_google_docs/       ← referência canônica de qualidade (não modificar)
 ```

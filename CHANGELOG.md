@@ -7,6 +7,51 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [1.3.0] - 2026-03-23
+
+### Changed
+
+- Todas as skills renomeadas com prefixo `lf-` para identificação da Lifters:
+  - `discovery` → `lf-discovery` (diretório `skills/lf-discovery/`)
+  - `new-feature` → `lf-new-feature` (diretório `skills/lf-new-feature/`)
+  - `design-system` → `lf-design-system` (diretório `skills/lf-design-system/`)
+
+- `skills.json`: campos `name` e `file` atualizados para os novos nomes.
+
+- `skills/lf-discovery/SKILL.md`: campo `name` atualizado para `lf-discovery`; referência ao próximo passo atualizada para `/lf-new-feature`.
+
+- `skills/lf-new-feature/SKILL.md`: campo `name` atualizado para `lf-new-feature`; referência ao discovery inline atualizada para `/lf-discovery`.
+
+- `skills/lf-design-system/SKILL.md`: campo `name` atualizado para `lf-design-system`.
+
+- `README.md` e `CLAUDE.md`: todas as referências de comandos e diagramas de estrutura atualizados para refletir os novos nomes.
+
+---
+
+## [1.2.0] - 2026-03-23
+
+### Added
+
+- `/design-system` — nova skill que conecta ao Figma via MCP Server e gera
+  `specs/design-system.md` como fonte de verdade visual oficial do projeto.
+  Extrai tipografia, cores, espaçamento, border radius e sombras diretamente
+  do Figma usando `get_metadata`, `get_variable_defs` e `get_design_context`.
+  Verifica conexão MCP antes de iniciar, detecta arquivo existente e pergunta
+  se deve sobrescrever, e documenta ambiguidades em "Notas de interpretação".
+
+- `skills/design-system/SKILL.md` — instrução completa da skill em 5 passos.
+
+- `skills/design-system/templates/design-system.md` — template com 15 seções:
+  Fonte de verdade, Uso obrigatório, Notas de interpretação, Famílias tipográficas,
+  Importação recomendada, Escala tipográfica (Display/Headings + Body/UI),
+  Cores Brand, Cores Neutras, Cores Status, Espaçamento, Border radius,
+  Sombras/Elevation, CSS custom properties, Regras de implementação,
+  Decisão em caso de dúvida.
+
+- `skills.json` atualizado: nova entrada `design-system` com scope `user`.
+
+---
+
 ## [1.1.0] - 2026-03-23
 
 ### Changed
