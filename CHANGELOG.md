@@ -7,6 +7,67 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [2.0.0] - 2026-03-23
+
+### Added
+
+- `/lf-briefing-ux` — nova skill que gera o Briefing UX/UI a partir do
+  `discovery.md`. Produz `briefings/briefing-ux.v0.md` com 11 seções focadas
+  exclusivamente no que o usuário vê e faz: personas, mapa de telas, especificação
+  por tela (estados + wireframe ASCII), fluxos de usuário, microcopy prescritivo,
+  regras de exibição e referências visuais. Audiência: time de UX/UI.
+  Pré-requisito: `discovery.md` gerado pelo `/lf-discovery`.
+
+- `skills/lf-briefing-ux/SKILL.md` — instrução completa da skill em 4 passos:
+  localizar discovery + verificar design system + confirmar escopo + gerar briefing.
+
+- `skills/lf-briefing-ux/templates/briefing-ux.md` — template com 11 seções e
+  header com campo `Baseado em` referenciando o `discovery.md`.
+
+- `ai/specs/20260323142630_google_docs/briefings/briefing-ux.v0.md` —
+  referência canônica de qualidade para o Briefing UX/UI, preenchida com o
+  contexto da feature Google Docs (todas as 11 seções).
+
+- `README.md`: nova seção "Fluxo completo de uso" com diagrama ASCII, descrição
+  de cada etapa com exemplos de uso, guia de refinamento conversacional e
+  documentação da rastreabilidade entre artefatos.
+
+### Changed
+
+- `/lf-new-feature`: output do briefing técnico renomeado de `briefing.v0.md`
+  para `briefing-tech.v0.md`. A skill agora detecta e lê `briefing-ux.vN.md`
+  (a versão mais recente, se existir) para popular seções 3 (Personas) e 6
+  (UX e Comportamento) do briefing técnico sem repetir perguntas. Ao final da
+  geração, lista automaticamente decisões técnicas que possam impactar o
+  Briefing UX/UI, para que o time decida se uma nova versão de UX é necessária.
+
+- `skills/lf-new-feature/templates/briefing.md` renomeado para
+  `briefing-tech.md`. O header do template agora inclui campos `Baseado em`
+  para referenciar `briefing-ux.vN.md` e `discovery.md`. Conteúdo das 15 seções
+  permanece intacto.
+
+- Headers de todos os briefings gerados incluem referências cruzadas em links
+  relativos: `briefing-ux.vN.md` referencia `../discovery.md`;
+  `briefing-tech.vN.md` referencia `../briefings/briefing-ux.vN.md` e
+  `../discovery.md`. Em refinamentos (v1, v2...), os headers apontam sempre
+  para os arquivos mais recentes disponíveis no momento da geração.
+
+- `skills.json`: versão atualizada para `2.0.0`, nova entrada `lf-briefing-ux`
+  adicionada entre `lf-discovery` e `lf-new-feature`.
+
+- `CLAUDE.md`: novo fluxo documentado, nova skill `lf-briefing-ux`, estrutura
+  de diretórios atualizada (briefings bifásicos), seção "Cross-reference Headers"
+  adicionada, seção "Spec Format" atualizada com as 11 seções do Briefing UX/UI.
+
+### Breaking Change
+
+- O arquivo gerado pelo `/lf-new-feature` mudou de nome:
+  `briefings/briefing.v0.md` → `briefings/briefing-tech.v0.md`.
+  Features existentes com `briefing.v0.md` não são afetadas — apenas
+  novas execuções usam o novo nome.
+
+---
+
 ## [1.3.0] - 2026-03-23
 
 ### Changed

@@ -1,6 +1,6 @@
 {
   "name": "lifters-skills",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "AI-native product development skills for Lifters teams",
   "author": "twinfo-io",
   "repository": "https://github.com/twinfo-io/lifters-skills",
@@ -12,8 +12,14 @@
       "scope": "user"
     },
     {
+      "name": "lf-briefing-ux",
+      "description": "Generates the UX/UI briefing from an existing discovery.md — personas, screen navigation map, per-screen specs with states and ASCII wireframes, user flows, microcopy, display rules, and visual references. Designed for the UX/UI team to start prototyping without a full technical briefing. Use after /lf-discovery and before /lf-new-feature.",
+      "file": "skills/lf-briefing-ux/SKILL.md",
+      "scope": "user"
+    },
+    {
       "name": "lf-new-feature",
-      "description": "Generates three canonical product artifacts from an existing discovery.md: briefing.v0.md (15 sections), specs.md (SPEC-XX with 12 sections each), and wps.md (work packages with dependency map).",
+      "description": "Generates three canonical product artifacts from an existing discovery.md: briefing-tech.v0.md (15 sections), specs.md (SPEC-XX with 12 sections each), and wps.md (work packages with dependency map). If briefing-ux.vN.md exists, uses it to populate personas and UX sections.",
       "file": "skills/lf-new-feature/SKILL.md",
       "scope": "user"
     },

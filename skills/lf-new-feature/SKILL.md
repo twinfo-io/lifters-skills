@@ -24,6 +24,11 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
    - Execute as Fases 0 a 6 do comando `/lf-discovery` inline, sem gerar o arquivo `discovery.md` separado.
    - Ao finalizar o discovery inline, prossiga para o Passo 2.
 
+4. **Verificar Briefing UX/UI existente:**
+   - Use Glob para verificar se existe `briefings/briefing-ux.v*.md` na mesma pasta do discovery.
+   - **Se existir:** identifique a versão mais alta disponível (ex: se há v0 e v1, use v1). Leia o arquivo com Read. Informe: "Encontrei o Briefing UX/UI (briefing-ux.v[N]). Vou usá-lo para popular personas e UX do briefing técnico."
+   - **Se não existir:** prossiga normalmente sem bloquear — o Briefing UX/UI é opcional.
+
 ---
 
 ## PASSO 2 — Confirmação de escopo
@@ -43,11 +48,13 @@ Apresente ao usuário:
 ```
 Vou gerar para [nome da feature]:
 
-  • ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing.v0.md
+  • ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v0.md
   • ai/specs/YYYYMMDDHHmmSS_nome/specs.md
   • ai/specs/YYYYMMDDHHmmSS_nome/wps.md
 
-Baseado em: [discovery.md existente / inputs/ / discovery inline]
+Baseado em:
+  • [discovery.md existente / inputs/ / discovery inline]
+  [• briefings/briefing-ux.v[N].md (se encontrado)]
 
 Pontos em aberto identificados no discovery:
   ⚠️ [lista, se houver]
@@ -59,17 +66,31 @@ Aguarde confirmação antes de gerar.
 
 ---
 
-## PASSO 3 — Geração do `briefing.v0.md`
+## PASSO 3 — Geração do `briefing-tech.v0.md`
 
-Gere `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing.v0.md`.
+Gere `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v0.md`.
 
-**Use `$CLAUDE_SKILL_DIR/templates/briefing.md` como estrutura e `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md` como referência de profundidade.**
+**Use `$CLAUDE_SKILL_DIR/templates/briefing-tech.md` como estrutura e `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md` como referência de profundidade.**
+
+**Header obrigatório — popular com valores reais:**
+
+```markdown
+> **Versão:** 0.1
+> **Status:** Rascunho
+> **Gerado em:** [data atual no formato YYYY-MM-DD]
+> **Baseado em:**
+>   - [`../briefings/briefing-ux.vN.md`](../briefings/briefing-ux.vN.md) — Briefing UX/UI vN ([data]) ← incluir apenas se briefing-ux foi encontrado no Passo 1
+>   - [`../discovery.md`](../discovery.md) — discovery de [data do discovery]
+```
+
+Se o `briefing-ux.vN.md` não foi encontrado no Passo 1, omitir a linha correspondente.
 
 **Regras de qualidade:**
 
 - **Todas as 15 seções devem estar presentes** — mesmo que uma seção seja "Não aplicável para esta feature", ela deve aparecer com essa nota.
+- **Seção 3 (Personas):** se `briefing-ux.vN.md` foi encontrado, derivar desta seção — não repetir perguntas já respondidas. Complementar com papéis técnicos que não aparecem no UX (ex: administrador de sistema, DBA).
 - **Seção 5 (Arquitetura):** inclua diagramas ASCII de fluxo, tabela de modelo de dados e tabela de endpoints quando aplicável.
-- **Seção 6 (UX):** inclua wireframes ASCII para os fluxos principais. Use o padrão visual do briefing de referência.
+- **Seção 6 (UX):** se `briefing-ux.vN.md` foi encontrado, resumir os fluxos principais já documentados e referenciar o arquivo. Adicionar wireframes ASCII apenas para novos comportamentos técnicos não cobertos no UX (estados de erro técnico, fluxos de autenticação, etc). Se não houver briefing-ux, incluir wireframes ASCII completos para os fluxos principais.
 - **Seção 9 (Erros):** tabela completa com todos os cenários de falha identificados.
 - **Seção 10 (Observabilidade):** tabela de eventos a logar, métricas e alertas — não deixe vazia.
 - **Seção 11 (Env vars):** bloco `.env` comentado com todas as variáveis necessárias.
@@ -126,23 +147,32 @@ Gere `ai/specs/YYYYMMDDHHmmSS_nome/wps.md`.
 
 ## PASSO 6 — Confirmação final
 
-Após gerar os três arquivos, apresente:
+Após gerar os três arquivos, analise se o `briefing-tech.v0.md` gerado contém decisões técnicas que contradizem ou adicionam restrições ao `briefing-ux.vN.md` existente (se houver). Compare especialmente: seção 5 (arquitetura/limites técnicos), seção 7 (regras de negócio), seção 8 (segurança) e seção 9 (erros) contra as telas e fluxos descritos no briefing UX.
+
+Apresente:
 
 ```
 Gerado com sucesso ✓
 
-  briefings/briefing.v0.md  — 15 seções · [N pontos em aberto]
-  specs.md                  — [N SPECs]
-  wps.md                    — [N WPs] · estimativa total: [soma das estimativas]d
+  briefings/briefing-tech.v0.md — 15 seções · [N pontos em aberto]
+  specs.md                      — [N SPECs]
+  wps.md                        — [N WPs] · estimativa total: [soma das estimativas]d
 
 [Se houver pontos em aberto:]
 Pontos em aberto que precisam de decisão antes de iniciar:
   ⚠️ [item 1]
   ⚠️ [item 2]
 
+[Se houver divergências entre briefing-tech e briefing-ux:]
+⚠️ Decisões técnicas que podem impactar o Briefing UX/UI:
+  1. [restrição identificada] — afeta [tela/fluxo do briefing-ux] — sugerido: atualizar seção [X] do briefing-ux
+  2. [...]
+
+  Para atualizar: peça ao Claude "leia briefing-ux.v[N].md e gere v[N+1] com: [mudanças acima]"
+
 Próximos passos sugeridos:
-  1. Revisar o briefing com o time técnico
+  1. Revisar o briefing técnico com o time
   2. Resolver os pontos em aberto acima
-  3. Se necessário, refinar: ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing.v1.md
+  3. Se necessário, refinar: ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v1.md
   4. Iniciar os WPs a partir de: [primeiro WP sem dependências]
 ```
