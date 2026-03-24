@@ -7,6 +7,69 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [2.1.0] - 2026-03-23
+
+### Added
+
+- `/lf-specs` — nova skill que gera `specs.md` e `wps.md` após o time de UX/UI
+  entregar as telas no Figma. Lê o `briefing-tech.vN.md` mais recente, coleta
+  interativamente uma URL do Figma por tela identificada no briefing, busca
+  contexto de design via Figma MCP (`get_metadata` + `get_design_context`),
+  cria `briefing-tech.v(N+1).md` com nova Seção 16 (Referências de Design) e
+  links inline por tela na Seção 6, e gera `specs.md` com URLs do Figma inline
+  nas seções "Comportamento esperado" e "Definição de pronto", além de `wps.md`
+  completo com mapa de dependências. Aceita nome da pasta como argumento opcional.
+  Funciona sem Figma MCP — nesse caso, gera specs/wps sem referências visuais.
+
+- `skills/lf-specs/SKILL.md` — instrução completa da skill em 8 passos:
+  verificar Figma MCP → localizar pasta/briefing → extrair lista de telas →
+  coletar URLs por tela → consultar Figma MCP → gerar briefing-tech v(N+1) →
+  gerar specs.md → gerar wps.md.
+
+- `skills/lf-specs/templates/` — templates copiados de `lf-new-feature/templates/`
+  (`briefing-tech.md`, `specs.md`, `wps.md`) para uso independente pela skill.
+
+### Changed
+
+- `/lf-new-feature`: skill passa a gerar **apenas** `briefing-tech.vN.md` — a
+  geração de `specs.md` e `wps.md` foi removida desta skill e movida para
+  `/lf-specs`. A skill agora detecta versões existentes do briefing-tech e
+  incrementa automaticamente (v0 → v1 → v2...). A mensagem de confirmação
+  final foi atualizada para indicar `/lf-specs` como próximo passo quando o
+  Figma estiver pronto.
+
+- `skills/lf-new-feature/SKILL.md`: removidos os PASSO 4 (specs.md) e PASSO 5
+  (wps.md). PASSO 6 renomeado para PASSO 4, com mensagem atualizada. PASSO 1
+  agora detecta a versão mais alta do briefing-tech existente. PASSO 2 e PASSO 3
+  atualizados para usar `briefing-tech.v[N].md` (versão dinâmica) em vez de
+  hardcodar `v0`. Corrigida inconsistência de referência ao template:
+  padronizado para `briefing-tech.md` (era `briefing.md` no PASSO 2).
+
+- `skills.json`: versão atualizada para `2.1.0`. Nova entrada `lf-specs`
+  adicionada entre `lf-new-feature` e `lf-design-system`. Description do
+  `lf-new-feature` atualizada para refletir geração exclusiva do briefing-tech.
+
+- `CLAUDE.md`: seção `/lf-new-feature` atualizada (saída é apenas `briefing-tech.vN.md`).
+  Nova seção `/lf-specs` adicionada. Árvore de diretórios atualizada com
+  `lf-specs/`. "Spec Folder Structure" atualizada (briefing-tech.v2 gerado pelo
+  `/lf-specs`, specs.md/wps.md gerados pelo `/lf-specs`). "Cross-reference Headers"
+  atualizado com regra para o briefing gerado pelo `/lf-specs`. "Spec Format"
+  atualizado com descrição do briefing-tech de 16 seções.
+
+- `README.md`: diagrama de fluxo atualizado com a etapa 4 (`/lf-specs`). Seção
+  `/lf-new-feature` atualizada. Nova seção `/lf-specs` adicionada. "Estrutura
+  gerada por feature" atualizada. "Estrutura do repositório" atualizada com
+  `lf-specs/`.
+
+### Breaking Change
+
+- `/lf-new-feature` **não gera mais** `specs.md` nem `wps.md`. Features em andamento
+  que dependiam dessas saídas devem migrar para `/lf-specs`. O briefing-tech
+  gerado por execuções anteriores permanece compatível — `/lf-specs` detecta
+  automaticamente a versão mais recente.
+
+---
+
 ## [2.0.0] - 2026-03-23
 
 ### Added

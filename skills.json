@@ -1,6 +1,6 @@
 {
   "name": "lifters-skills",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "AI-native product development skills for Lifters teams",
   "author": "twinfo-io",
   "repository": "https://github.com/twinfo-io/lifters-skills",
@@ -19,8 +19,14 @@
     },
     {
       "name": "lf-new-feature",
-      "description": "Generates three canonical product artifacts from an existing discovery.md: briefing-tech.v0.md (15 sections), specs.md (SPEC-XX with 12 sections each), and wps.md (work packages with dependency map). If briefing-ux.vN.md exists, uses it to populate personas and UX sections.",
+      "description": "Generates the technical briefing (briefing-tech.vN.md, 15 sections) from an existing discovery.md. Can be called multiple times to iterate versions (v0 → v1 → v2). If briefing-ux.vN.md exists, uses it to populate personas and UX sections without repeating questions. Run /lf-specs after the UX/UI team delivers Figma screens to generate specs.md and wps.md.",
       "file": "skills/lf-new-feature/SKILL.md",
+      "scope": "user"
+    },
+    {
+      "name": "lf-specs",
+      "description": "Generates specs.md and wps.md after the UX/UI team delivers Figma screens. Reads the latest briefing-tech.vN.md, interactively collects one Figma URL per screen, fetches design context via Figma MCP, creates briefing-tech.v(N+1).md with Section 16 (Figma references) and inline screen links, then generates specs.md (SPEC-XX per domain with Figma URLs inline) and wps.md (work packages with dependency map). Run after /lf-new-feature once the UX/UI team has shared Figma screen URLs.",
+      "file": "skills/lf-specs/SKILL.md",
       "scope": "user"
     },
     {

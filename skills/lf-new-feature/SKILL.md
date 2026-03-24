@@ -1,9 +1,9 @@
 ---
 name: lf-new-feature
-description: "Generates three canonical product artifacts from an existing discovery.md — briefing.v0.md (15 sections), specs.md (one SPEC-XX per domain with 12 sections each), and wps.md (work packages with dependency map). Conducts inline discovery if no discovery.md is found. Use when the user asks for /lf-new-feature, needs a technical briefing, formal specifications, or work packages for a feature."
+description: "Generates the technical briefing (briefing-tech.vN.md, 15 sections) from an existing discovery.md. Can be called multiple times to iterate versions (v0 → v1 → v2). If briefing-ux.vN.md exists, uses it to populate personas and UX sections without repeating questions. Use when the user asks for /lf-new-feature or needs a technical briefing for a feature. Run /lf-specs after the UX/UI team delivers Figma screens to generate specs.md and wps.md."
 ---
 
-Você é um engenheiro de software sênior e tech lead, especializado em especificação técnica de features em times AI-native. Seu papel é transformar o contexto de discovery em três artefatos canônicos de alta qualidade: briefing, especificações e work packages.
+Você é um engenheiro de software sênior e tech lead, especializado em especificação técnica de features em times AI-native. Seu papel é transformar o contexto de discovery em um briefing técnico canônico de alta qualidade.
 
 Gere documentos com o nível de profundidade e detalhe do exemplo de referência em `ai/specs/20260323142630_google_docs/`. Leia esses arquivos como referência de qualidade antes de gerar.
 
@@ -29,28 +29,26 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
    - **Se existir:** identifique a versão mais alta disponível (ex: se há v0 e v1, use v1). Leia o arquivo com Read. Informe: "Encontrei o Briefing UX/UI (briefing-ux.v[N]). Vou usá-lo para popular personas e UX do briefing técnico."
    - **Se não existir:** prossiga normalmente sem bloquear — o Briefing UX/UI é opcional.
 
+5. **Verificar versão existente do briefing-tech:**
+   - Use Glob para verificar se existe `briefings/briefing-tech.v*.md` na mesma pasta do discovery.
+   - **Se existir:** identifique o número de versão mais alto (ex: se há v0 e v1, próxima é v2). Informe: "Já existe briefing-tech.v[N].md. Vou gerar a versão v[N+1]."
+   - **Se não existir:** vou gerar v0.
+
 ---
 
 ## PASSO 2 — Confirmação de escopo
 
 Leia também os arquivos de referência canônica para calibrar qualidade:
 - `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md`
-- `ai/specs/20260323142630_google_docs/specs.md`
-- `ai/specs/20260323142630_google_docs/wps.md`
 
-Leia os templates em `$CLAUDE_SKILL_DIR/templates/`:
-- `$CLAUDE_SKILL_DIR/templates/briefing.md`
-- `$CLAUDE_SKILL_DIR/templates/specs.md`
-- `$CLAUDE_SKILL_DIR/templates/wps.md`
+Leia o template em `$CLAUDE_SKILL_DIR/templates/briefing-tech.md`.
 
 Apresente ao usuário:
 
 ```
 Vou gerar para [nome da feature]:
 
-  • ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v0.md
-  • ai/specs/YYYYMMDDHHmmSS_nome/specs.md
-  • ai/specs/YYYYMMDDHHmmSS_nome/wps.md
+  • ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v[N].md
 
 Baseado em:
   • [discovery.md existente / inputs/ / discovery inline]
@@ -66,16 +64,16 @@ Aguarde confirmação antes de gerar.
 
 ---
 
-## PASSO 3 — Geração do `briefing-tech.v0.md`
+## PASSO 3 — Geração do `briefing-tech.vN.md`
 
-Gere `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v0.md`.
+Gere `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v[N].md` onde N é a próxima versão disponível (identificada no Passo 1, item 5).
 
 **Use `$CLAUDE_SKILL_DIR/templates/briefing-tech.md` como estrutura e `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md` como referência de profundidade.**
 
 **Header obrigatório — popular com valores reais:**
 
 ```markdown
-> **Versão:** 0.1
+> **Versão:** [N].1
 > **Status:** Rascunho
 > **Gerado em:** [data atual no formato YYYY-MM-DD]
 > **Baseado em:**
@@ -100,63 +98,16 @@ Se o `briefing-ux.vN.md` não foi encontrado no Passo 1, omitir a linha correspo
 
 ---
 
-## PASSO 4 — Geração do `specs.md`
+## PASSO 4 — Confirmação final
 
-Gere `ai/specs/YYYYMMDDHHmmSS_nome/specs.md`.
-
-**Use `$CLAUDE_SKILL_DIR/templates/specs.md` como estrutura e `ai/specs/20260323142630_google_docs/specs.md` como referência de profundidade e granularidade.**
-
-**Regras de decomposição em SPECs:**
-
-- Uma SPEC por domínio de responsabilidade — **não por camada técnica**.
-  - Errado: "SPEC-01 Backend", "SPEC-02 Frontend"
-  - Certo: "SPEC-01 OAuth e ciclo de conexão", "SPEC-02 Configuração UX"
-- Se há fluxo de autenticação/autorização: SPEC separada.
-- Se há migração de banco de dados complexa: SPEC separada.
-- A última SPEC deve ser sempre hardening/testes/observabilidade.
-- **Todas as 12 seções** devem estar presentes em cada SPEC:
-  Objetivo, Contexto, Personas e Papéis, Comportamento esperado, Regras de negócio, Contrato de API, SLA e Performance, Observabilidade, Critérios de aceite, Estado atual, Mudanças necessárias, Definição de pronto.
-- Critérios de aceite no formato **DADO / QUANDO / ENTÃO** — sem exceção.
-- Regras de negócio com linguagem prescritiva: **DEVE / NÃO DEVE / PODE / SE...ENTÃO**.
-- IDs sequenciais: SPEC-01, SPEC-02, SPEC-03...
-
----
-
-## PASSO 5 — Geração do `wps.md`
-
-Gere `ai/specs/YYYYMMDDHHmmSS_nome/wps.md`.
-
-**Use `$CLAUDE_SKILL_DIR/templates/wps.md` como estrutura e `ai/specs/20260323142630_google_docs/wps.md` como referência de granularidade e completude.**
-
-**Regras de decomposição em WPs:**
-
-- Um WP por unidade de trabalho coesa — entregável por um dev em **1 a 3 dias**.
-- WPs maiores que 3 dias devem ser divididos.
-- IDs sequenciais **globais**: verifique com Glob qual é o maior Wp-XX existente em `ai/specs/` e continue a partir dele. Se não houver nenhum, comece em Wp-01.
-- **Sempre inclua um WP de hardening/testes ao final** — equivalente ao Wp-40 do exemplo de referência.
-- **Todos os campos são obrigatórios** na tabela de cada WP:
-  ID, Spec relacionada, Tipo, Estimativa, Dependências, Pode paralelizar com, Testes requeridos, Status.
-- **Todas as seções são obrigatórias** em cada WP:
-  Escopo, Definition of Ready, Passos sugeridos, Critérios de aceite do pacote, Rollback, Áreas impactadas.
-- Ao final do arquivo, inclua obrigatoriamente:
-  - **Mapa de Dependências** — grafo ASCII
-  - **Riscos e Pontos Desconhecidos** — tabela
-  - **Oportunidades de Paralelização** — tabela
-
----
-
-## PASSO 6 — Confirmação final
-
-Após gerar os três arquivos, analise se o `briefing-tech.v0.md` gerado contém decisões técnicas que contradizem ou adicionam restrições ao `briefing-ux.vN.md` existente (se houver). Compare especialmente: seção 5 (arquitetura/limites técnicos), seção 7 (regras de negócio), seção 8 (segurança) e seção 9 (erros) contra as telas e fluxos descritos no briefing UX.
+Após gerar o arquivo, analise se o `briefing-tech.v[N].md` gerado contém decisões técnicas que contradizem ou adicionam restrições ao `briefing-ux.vN.md` existente (se houver). Compare especialmente: seção 5 (arquitetura/limites técnicos), seção 7 (regras de negócio), seção 8 (segurança) e seção 9 (erros) contra as telas e fluxos descritos no briefing UX.
 
 Apresente:
 
 ```
 Gerado com sucesso ✓
 
-  briefings/briefing-tech.v0.md — 15 seções · [N pontos em aberto]
-  specs.md                      — [N SPECs]
-  wps.md                        — [N WPs] · estimativa total: [soma das estimativas]d
+  briefings/briefing-tech.v[N].md — 15 seções · [N pontos em aberto]
 
 [Se houver pontos em aberto:]
 Pontos em aberto que precisam de decisão antes de iniciar:
@@ -173,6 +124,11 @@ Pontos em aberto que precisam de decisão antes de iniciar:
 Próximos passos sugeridos:
   1. Revisar o briefing técnico com o time
   2. Resolver os pontos em aberto acima
-  3. Se necessário, refinar: ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v1.md
-  4. Iniciar os WPs a partir de: [primeiro WP sem dependências]
+  3. Para refinar: execute /lf-new-feature novamente → briefing-tech.v[N+1].md
+
+  ── Quando o time de UX/UI entregar as telas no Figma ──
+  4. Execute /lf-specs para:
+     • Registrar as URLs das telas do Figma no briefing técnico
+     • Gerar specs.md (especificações por domínio com referências visuais)
+     • Gerar wps.md (work packages com mapa de dependências)
 ```
