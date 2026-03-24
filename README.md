@@ -71,22 +71,28 @@ Inicia o processo de discovery de uma nova feature. Conduz uma entrevista estrut
 
 ### `/lf-briefing-ux`
 
-Gera o Briefing UX/UI a partir do `discovery.md` existente. Produz um artefato focado exclusivamente no que o usuário vê e faz — sem ruído técnico de backend ou infraestrutura. Desenhado para o time de UX/UI iniciar a prototipação sem depender do briefing técnico completo.
+Gera o Briefing UX/UI a partir do `discovery.md` existente e um protótipo HTML navegável com mocks para revisão visual imediata. Produz artefatos focados exclusivamente no que o usuário vê e faz — sem ruído técnico de backend ou infraestrutura. Desenhado para o time de UX/UI iniciar a prototipação sem depender do briefing técnico completo.
 
 ```bash
 /lf-briefing-ux
 ```
 
-**Pré-requisito:** `discovery.md` gerado pelo `/lf-discovery`.
+**Pré-requisitos:**
+- `discovery.md` gerado pelo `/lf-discovery`
+- `specs/design-system.md` gerado pelo `/lf-design-system` (**obrigatório** — a skill aborta sem ele)
 
 **O que gera:**
 
 ```
 ai/specs/YYYYMMDDHHmmSS_nome/
-└── briefings/
-    └── briefing-ux.v0.md  ← 11 seções: personas, mapa de telas, especificação
-                               por tela (estados + wireframe ASCII), fluxos,
-                               microcopy prescritivo, regras de exibição
+├── briefings/
+│   └── briefing-ux.v0.md  ← 11 seções: personas, mapa de telas, especificação
+│                              por tela (estados + wireframe ASCII), fluxos,
+│                              microcopy prescritivo, regras de exibição
+└── prototype/
+    └── index.html          ← protótipo HTML navegável com todas as telas e
+                               estados descritos no briefing, usando os tokens
+                               do design system
 ```
 
 ---
@@ -154,17 +160,17 @@ O fluxo AI-Native da Lifters segue quatro etapas sequenciais. Cada etapa gera um
  discovery.md ────────────────────────────────────────────────┐
       │                                                        │
       ▼                                                        │
-/lf-briefing-ux                                               │
+/lf-briefing-ux ◄── specs/design-system.md (obrigatório)     │
       │                                                        │
       ▼                                                        ▼
 briefing-ux.v0.md ───────────────────────────► /lf-new-feature
-      │  [revisão UX/UI → v1, v2...]                 │
+prototype/index.html   [revisão UX/UI → v1]          │
       │                                               ▼
       │                                   briefing-tech.v0.md
       │                                   specs.md
       │                                   wps.md
       │
-      └── /lf-design-system (independente — pode rodar a qualquer momento)
+      └── /lf-design-system (deve rodar antes do /lf-briefing-ux)
 ```
 
 ### Etapa 1 — Discovery `/lf-discovery`
@@ -183,15 +189,17 @@ Colete documentos existentes (Google Docs, Notion, texto colado), responda as pe
 
 ### Etapa 2 — Briefing UX/UI `/lf-briefing-ux`
 
-Execute após ter o `discovery.md`. Gera o briefing para o time de UX/UI iniciar a prototipação — sem precisar ler o discovery completo nem esperar o briefing técnico.
+Execute após ter o `discovery.md` **e** o `specs/design-system.md`. Gera o briefing para o time de UX/UI e um protótipo HTML navegável com mocks para apresentação imediata — sem precisar ler o discovery completo nem esperar o briefing técnico.
 
 ```bash
 /lf-briefing-ux
 ```
 
-A skill lê o `discovery.md` automaticamente, lê o `specs/design-system.md` se existir (para nomear componentes corretamente), e gera o briefing UX com todas as telas, wireframes ASCII e microcopy prescritivo.
+A skill lê o `discovery.md` e o `specs/design-system.md` automaticamente, gera o briefing UX com todas as telas, wireframes ASCII e microcopy prescritivo, e em seguida gera o `prototype/index.html` com todas as telas navegáveis, todos os estados e os tokens do design system aplicados.
 
-**Resultado:** `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-ux.v0.md`
+**Resultado:**
+- `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-ux.v0.md`
+- `ai/specs/YYYYMMDDHHmmSS_nome/prototype/index.html`
 
 ---
 
@@ -269,6 +277,8 @@ ai/specs/YYYYMMDDHHmmSS_nome_da_feature/
 │   ├── briefing-ux.v1.md         ← refinamento após review do time UX
 │   ├── briefing-tech.v0.md       ← gerado pelo /lf-new-feature
 │   └── briefing-tech.v1.md       ← refinamento após review técnico
+├── prototype/
+│   └── index.html                ← protótipo HTML navegável (gerado pelo /lf-briefing-ux)
 ├── plans/                        ← planos de execução (opcional)
 ├── discovery.md                  ← gerado pelo /lf-discovery
 ├── specs.md                      ← especificações formais
