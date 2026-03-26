@@ -714,7 +714,7 @@ Cada tab possui: ícone SVG `14px` à esquerda + texto do label.
 - Sombras devem seguir os tokens `shadow-*` — evitar `box-shadow` manual.
 - **Overlays e hover states** devem usar o sistema de alpha definido em `1.4` — nunca cores sólidas sobre fundos.
 - Ícones decorativos recebem `aria-hidden="true"`; botões apenas com ícone recebem `aria-label`.
-- Todos os elementos interativos devem ter estado `:focus-visible` visível com outline de `2px`.   
+- Todos os elementos interativos devem ter estado `:focus-visible` visível com outline de `2px`.
 
 ---
 
