@@ -7,6 +7,27 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [2.2.0] - 2026-03-27
+
+### Added
+
+- `/lf-exec` — nova skill que inicia a execução de um work package a partir do
+  `wps.md` gerado pelo `/lf-specs`. Lista interativamente as specs disponíveis
+  em `specs/` e os WPs pendentes (excluindo os com `✅ Concluido`), orienta a
+  atualização do projeto (detecta git submodules automaticamente), guia a
+  criação de branch no padrão `features/<iniciais>/<nome_semantico>` ou mantém
+  a branch atual, e dispara o prompt padronizado de execução para o WP
+  selecionado. Sem argumentos — fluxo totalmente interativo.
+
+- `skills/lf-exec/SKILL.md` — instrução completa da skill em 5 passos:
+  listar specs disponíveis → listar WPs pendentes → orientar atualização →
+  criar/escolher branch → disparar prompt de execução.
+
+- `skills/lf-exec/templates/exec-prompt.md` — template do prompt de execução
+  preenchido com o caminho do `wps.md` e o ID do WP selecionado (uppercase).
+
+---
+
 ## [2.1.0] - 2026-03-23
 
 ### Added

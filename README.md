@@ -161,6 +161,28 @@ ai/specs/YYYYMMDDHHmmSS_nome/
 
 ---
 
+### `/lf-exec`
+
+Inicia a execução de um work package a partir do `wps.md` gerado pelo `/lf-specs`. Conduz o desenvolvedor pelo processo completo: seleção da spec e do WP, atualização do projeto, criação de branch e disparo do prompt de implementação. Sem argumentos — fluxo totalmente interativo.
+
+```bash
+/lf-exec
+```
+
+**Pré-requisito:** `wps.md` gerado pelo `/lf-specs` em `specs/YYYYMMDDHHmmSS_nome/`.
+
+**O que acontece, passo a passo:**
+
+1. Lista todas as specs com `wps.md` disponíveis em `specs/` — você escolhe qual executar
+2. Lista apenas os WPs **pendentes** da spec escolhida (os com `✅ Concluido` são omitidos) — você escolhe qual iniciar
+3. Detecta se o projeto usa git submodules e orienta a atualização correta:
+   - Com submodules: `git --no-pager submodule update --init --recursive`
+   - Sem submodules: `git pull origin main`
+4. Pergunta se você quer criar uma nova branch (`features/<iniciais>/<nome_semantico>`) ou usar a branch atual
+5. Dispara o prompt padronizado de execução para o WP selecionado, referenciando o `wps.md` correto
+
+---
+
 ### `/lf-design-system ["Nome do DS" figma-url]`
 
 Conecta ao Figma via MCP Server, extrai todos os tokens de design (tipografia, cores, espaçamento, border radius, sombras) e gera `specs/design-system.md` — a fonte de verdade visual oficial do projeto.

@@ -34,6 +34,12 @@
       "description": "Connects to Figma via MCP Server, extracts typography, colors, spacing, border radius, shadows and all design token definitions, and generates specs/design-system.md — the official design system source of truth for the project. Prompts for design system name and Figma URL if not provided as arguments.",
       "file": "skills/lf-design-system/SKILL.md",
       "scope": "user"
+    },
+    {
+      "name": "lf-exec",
+      "description": "Starts the execution of a specific work package (WP-XX) from a generated wps.md. Interactively lists available spec folders under specs/ and pending work packages (excluding completed ones), guides through project update and branch creation (features/initials/semantic_name or current branch), then fires the execution prompt for the selected WP. No arguments required.",
+      "file": "skills/lf-exec/SKILL.md",
+      "scope": "user"
     }
   ]
 }
