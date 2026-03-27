@@ -41,7 +41,7 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
 Leia também os arquivos de referência canônica para calibrar qualidade:
 - `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md`
 
-Leia o template em `$CLAUDE_SKILL_DIR/templates/briefing-tech.md`.
+Leia o template em `$CLAUDE_SKILL_DIR/templates/briefing-tech.md`. Se não existir, crie-o com as 15 seções canônicas extraídas de `ai/specs/20260323142630_google_docs/briefings/briefing.v0.md` antes de prosseguir.
 
 Apresente ao usuário:
 
