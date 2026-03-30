@@ -212,79 +212,59 @@ Com todo o contexto coletado, gere o arquivo `ai/specs/YYYYMMDDHHmmSS_nome/disco
 - O documento deve ser suficiente para o `/new-feature` gerar specs sem precisar fazer novas perguntas
 - Tom: técnico, direto, sem redundância
 
-**Após gerar o arquivo, informe:**
+**Após gerar o arquivo:**
 
+**Se não há pontos em aberto**, informe e encerre:
 ```
 Discovery completo ✓
 
-Arquivo criado: ai/specs/YYYYMMDDHHmmSS_nome/discovery.md
+Arquivo: ai/specs/YYYYMMDDHHmmSS_nome/discovery.md
 
-Pontos em aberto identificados (resolver antes de iniciar):
-  ⚠️ [lista de pontos em aberto, se houver]
+Próximo passo: execute /lf-new-feature para gerar briefing, specs e work packages.
+```
 
-Próximo passo:
-  [Se há pontos em aberto:] Prosseguindo para a Fase 8 — resolução dos pontos em aberto.
-  [Se não há pontos em aberto:] Execute /lf-new-feature para gerar briefing, specs e work packages.
+**Se há pontos em aberto**, informe e prossiga para a Fase 8:
+```
+Discovery gerado ✓
+
+Arquivo: ai/specs/YYYYMMDDHHmmSS_nome/discovery.md
+
+Há [N] ponto(s) em aberto que precisam de definição antes do briefing técnico.
+Preciso das suas respostas para fechá-los e atualizar o discovery.
 ```
 
 ---
 
-## FASE 8 — Resolução dos pontos em aberto
+## FASE 8 — Fechamento dos pontos em aberto
 
-Execute esta fase **somente se** há pelo menos um `⚠️ Ponto em aberto` no `discovery.md` gerado na Fase 7.
-
-**Se não há pontos em aberto:** informe que o discovery está completo e instrua o usuário a executar `/lf-new-feature`.
-
----
-
-### 8.1 — Apresentação dos pontos em aberto
-
-Liste todos os pontos em aberto extraídos da seção "Lacunas e pontos em aberto" do discovery.md gerado:
+Apresente todos os pontos em aberto com contexto suficiente para o usuário responder:
 
 ```
-Antes de prosseguir, precisamos resolver os pontos em aberto identificados.
-Responda cada um abaixo — pode responder todos de uma vez ou um por vez:
-
-⚠️ [1] [dimensão] — [descrição do que falta definir]
-⚠️ [2] [dimensão] — [descrição]
+⚠️ [1] [dimensão]: [descrição clara do que precisa ser definido e por que importa]
+⚠️ [2] [dimensão]: [descrição]
 [...]
 
-Para cada item sem resposta agora, confirme "a definir" e prosseguiremos.
+Responda cada item — pode responder tudo de uma vez. Para itens sem resposta agora, diga "a definir".
 ```
 
-Aguarde as respostas do usuário.
+Aguarde as respostas do usuário. Em seguida:
 
----
+1. Para cada ponto respondido, identifique **todas as seções do discovery.md afetadas** pela resposta — não só "Lacunas e pontos em aberto". Uma resposta sobre stack afeta "Restrições e premissas" e "Decisões de design". Uma resposta sobre personas afeta "Usuários e papéis" e "Problema e dor". Reescreva cada seção afetada integrando a informação no texto corrido, como se sempre tivesse estado lá.
 
-### 8.2 — Atualização do discovery.md
+2. Remova cada item resolvido da seção "Lacunas e pontos em aberto". Se todos foram resolvidos, substitua a seção por `Todos os pontos foram resolvidos.`
 
-Para **cada ponto respondido** (não marcado como "a definir"):
+3. Pontos marcados como "a definir" permanecem sem alteração.
 
-1. Identifique **todas as seções** do discovery.md que são afetadas pela resposta — não apenas a seção "Lacunas e pontos em aberto". Uma resposta sobre stack técnica afeta "Restrições e premissas" e "Decisões de design tomadas". Uma resposta sobre personas afeta "Usuários e papéis afetados" e "Problema e dor".
-
-2. Reescreva cada seção afetada integrando a nova informação como parte do texto corrido — não como uma nota adicionada ao final. O objetivo é que o discovery.md resultante pareça que aquela informação sempre esteve lá.
-
-3. Remova o item resolvido da seção "Lacunas e pontos em aberto". Se todos os itens foram resolvidos, substitua a seção por: `Todos os pontos em aberto foram resolvidos.`
-
-4. Pontos marcados como "a definir" permanecem na seção "Lacunas e pontos em aberto" sem alteração.
-
----
-
-### 8.3 — Confirmação das mudanças
-
-Após atualizar o arquivo, informe:
+Após atualizar o arquivo, confirme:
 
 ```
 discovery.md atualizado ✓
 
-Seções modificadas:
-  • [nome da seção] — [decisão integrada, em uma linha]
-  • [nome da seção] — [decisão integrada, em uma linha]
+  • [seção modificada] — [decisão integrada, em uma linha]
+  • [seção modificada] — [...]
 
-Pontos resolvidos: [N de M]
-[Se ainda há pontos em aberto:]
-  Pontos que permanecem em aberto: ⚠️ [lista]
+[Se ainda há pontos em aberto:] Restam [N] ponto(s) em aberto: ⚠️ [lista]
+[Se todos resolvidos:] Todos os pontos foram resolvidos.
 
-Próximo passo:
-  Execute /lf-new-feature para gerar briefing, specs e work packages.
+Próximo passo: execute /lf-new-feature para gerar briefing, specs e work packages.
 ```
