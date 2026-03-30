@@ -74,6 +74,8 @@ Aguarde a escolha do usuário. Armazene internamente como `WP_ID` (sempre upperc
 
 ## PASSO 2 — Orientar atualização do projeto
 
+> **Controle de sessão:** Esta pergunta deve ser feita **apenas uma vez por sessão**. Se o usuário já respondeu nesta sessão (variável `SESSION_REPO_UPDATED` definida como `true`), pule este passo inteiro e vá direto ao Passo 3.
+
 Use a ferramenta Glob para verificar se existe o arquivo `.gitmodules` na raiz do projeto atual.
 
 **Se `.gitmodules` existir (projeto com git submodules):**
@@ -102,11 +104,15 @@ Execute:
 Avise quando o projeto estiver atualizado para continuar.
 ```
 
-Aguarde a confirmação do usuário antes de continuar para o próximo passo.
+Aguarde a confirmação do usuário. Ao receber a confirmação, armazene `SESSION_REPO_UPDATED = true` no contexto da sessão. Esta flag persiste para todos os WPs subsequentes executados na mesma sessão — não repita este passo novamente.
 
 ---
 
 ## PASSO 3 — Criar ou escolher branch
+
+> **Controle de sessão:** Esta pergunta deve ser feita **apenas uma vez por sessão**. Se o usuário já respondeu nesta sessão (variável `SESSION_BRANCH_DECISION` definida), pule as perguntas e aplique a decisão já armazenada:
+> - Se `SESSION_BRANCH_DECISION = "current"`: continue para o Passo 4 sem criar branch.
+> - Se `SESSION_BRANCH_DECISION = "new"`: informe que a branch `SESSION_BRANCH_NAME` já foi criada nesta sessão e continue para o Passo 4.
 
 Extraia o nome semântico da spec a partir de `SPEC_FOLDER`: remova o prefixo timestamp (`YYYYMMDDHHmmSS_`) e use o restante como `NOME_SEMANTICO`, em **lowercase** e **snake_case** (mantenha underscores, sem hífens).
 
@@ -145,9 +151,11 @@ Crie a branch com o comando:
 Avise quando estiver na branch correta para continuar.
 ```
 
-Aguarde a confirmação do usuário.
+Aguarde a confirmação do usuário. Em seguida, armazene `SESSION_BRANCH_DECISION = "new"` e `SESSION_BRANCH_NAME = features/<iniciais>/<NOME_SEMANTICO>` no contexto da sessão.
 
-**Se [2]:** Continue para o Passo 4 sem solicitar criação de branch.
+**Se [2]:** Armazene `SESSION_BRANCH_DECISION = "current"` no contexto da sessão. Continue para o Passo 4 sem solicitar criação de branch.
+
+> **Importante:** Uma vez definidas, as variáveis `SESSION_BRANCH_DECISION` e `SESSION_BRANCH_NAME` persistem durante toda a sessão. Só volte a perguntar se o usuário solicitar explicitamente alterar a branch.
 
 ---
 
