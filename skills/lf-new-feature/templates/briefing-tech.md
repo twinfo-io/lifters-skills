@@ -13,8 +13,10 @@
 
 ## 1. Contexto e Problema
 
-<!-- Por que isso existe?
-     Qual a dor real? Quem sente? Com que frequência? Qual o impacto mensurável?
+<!-- OBRIGATÓRIO: Descreva ≥2 problemas concretos.
+     - Nomeie o sistema/componente atual afetado (ex: "o módulo pdf-generator.ts")
+     - Inclua frequência e impacto mensurável (ex: "qualquer alteração exige deploy")
+     - Inclua TUDO que foi descrito pelo usuário e pelo discovery — não sumarize.
      O que acontece se não resolvermos? -->
 
 ---
@@ -42,37 +44,51 @@
 
 ## 4. Premissas, Restrições e Decisões Tomadas
 
-<!-- O que já está decidido e não está em discussão.
-     Restrições técnicas (ex: não podemos quebrar API pública).
-     Restrições legais (ex: LGPD, compliance).
-     Restrições de negócio (ex: sem custo adicional de infra nesta fase). -->
+<!-- OBRIGATÓRIO: ≥5 itens, cada um com justificativa.
+     Tipos: técnica | legal | negócio | arquitetural | produto
+     Inclua TODAS as restrições mencionadas pelo usuário ou identificadas no discovery. -->
 
-- **[Premissa/Restrição]:** [descrição e justificativa]
+- **[Premissa/Restrição]:** [descrição e justificativa] *(origem: técnica/legal/negócio)*
 
 ---
 
 ## 5. Arquitetura e Fluxos
 
-<!-- Diagramas ASCII de fluxo de dados (use → para setas).
-     Modelo de dados: quais campos, em qual entidade, qual tipo, nullable?.
-     Endpoints: método, path, payload resumido, resposta esperada.
-     Integrações externas: quais APIs, SDKs, serviços de terceiros. -->
+<!-- OBRIGATÓRIO:
+     5.1 — ≥1 diagrama ASCII com ≥4 atores/etapas
+     5.2 — ≥1 tabela de modelo de dados com ≥5 campos
+     5.3 — ≥1 tabela de endpoints com ≥3 rotas
+     5.4 — listar todas as integrações externas identificadas (APIs, SDKs, serviços)
+     Inclua TODOS os detalhes técnicos mencionados pelo usuário ou no discovery. -->
 
 ### 5.1 Fluxo principal
 
 ```
 [Ator] → [Ação] → [Sistema] → [Resultado]
+         ↓
+[Ator] → [Ação] → [Serviço externo] → [Resposta]
 ```
 
 ### 5.2 Modelo de dados
+
+<!-- ≥5 campos. Não deixe linha vazia — se não souber o tipo exato, use "a definir" e marque na Seção 15. -->
 
 | Campo | Entidade | Tipo | Obrigatório | Descrição |
 |-------|----------|------|-------------|-----------|
 
 ### 5.3 Endpoints
 
+<!-- ≥3 rotas. Inclua autenticação esperada (JWT, API key, sessão, webhook-sig). -->
+
 | Método | Path | Auth | Payload resumido | Resposta |
 |--------|------|------|------------------|----------|
+
+### 5.4 Integrações externas
+
+<!-- Listar todas as APIs, SDKs ou serviços de terceiros envolvidos. -->
+
+| Serviço | Finalidade | SDK / Versão | Autenticação |
+|---------|-----------|--------------|--------------|
 
 ---
 
@@ -110,15 +126,18 @@
 
 ## 7. Regras de Negócio
 
-<!-- Lista numerada. Linguagem prescritiva:
+<!-- OBRIGATÓRIO: ≥5 regras. Linguagem prescritiva:
      DEVE     — obrigatório
      NÃO DEVE — proibido
      PODE     — opcional/permitido
-     SE...ENTÃO — condicional -->
+     SE...ENTÃO — condicional
+     Inclua TODAS as regras identificadas no discovery e nos inputs — não omita nenhuma. -->
 
 1. [Papel] DEVE [fazer X] para [contexto].
 2. O sistema NÃO DEVE [fazer Y] quando [condição].
 3. SE [condição] ENTÃO [comportamento].
+4.
+5.
 
 ---
 
@@ -143,32 +162,34 @@
 
 ## 9. Tratamento de Erros e Resiliência
 
-<!-- Tabela com os cenários de erro esperados.
-     Distinguir: erro do usuário vs. erro do sistema vs. erro de terceiro.
-     Para integrações externas: o que fazer se a API estiver indisponível? -->
+<!-- OBRIGATÓRIO: ≥5 cenários. Cobrir as 3 categorias:
+     • Erro do usuário (input inválido, permissão negada)
+     • Erro do sistema (timeout, banco indisponível)
+     • Erro de terceiro/integração (API externa fora do ar, token expirado)
+     Inclua TODOS os cenários de falha identificados no discovery e nos inputs. -->
 
-| Cenário | Causa | Comportamento esperado | Mensagem ao usuário |
-|---------|-------|----------------------|---------------------|
+| Cenário | Causa | HTTP | Comportamento do sistema | Mensagem ao usuário |
+|---------|-------|------|--------------------------|---------------------|
 
 ---
 
 ## 10. Observabilidade
 
-<!-- Quais eventos estruturados logar (campos obrigatórios em cada log).
-     Quais métricas expor (contadores, histogramas, gauges).
-     Quais alertas configurar e com qual threshold.
-     Dashboard: o que precisa ser visível para o time de operação? -->
+<!-- OBRIGATÓRIO: não deixar nenhuma subseção vazia.
+     10.1 — ≥3 eventos (use snake_case para nomes)
+     10.2 — ≥2 métricas (contador, gauge ou histograma)
+     10.3 — ≥1 alerta com condição e threshold definidos -->
 
 ### 10.1 Eventos a logar
 
 | Evento | Campos obrigatórios | Nível |
-|--------|--------------------:|-------|
-| [ex: google_connect_success] | [user_id, timestamp, scope] | info |
+|--------|---------------------|-------|
+| [ex: feature_action_success] | [user_id, timestamp, contexto] | info |
 
 ### 10.2 Métricas
 
 | Métrica | Tipo | O que mede |
-|---------|------|-----------|
+|---------|------|------------|
 
 ### 10.3 Alertas
 
@@ -236,15 +257,20 @@
 
 ## 15. Riscos e Pontos em Aberto
 
-<!-- Tabela de riscos com probabilidade, impacto e mitigação.
-     ⚠️ Pontos em aberto: o que precisa ser definido antes de iniciar. -->
+<!-- OBRIGATÓRIO: ≥3 riscos na tabela.
+     Todos os pontos em aberto do discovery e dos inputs devem aparecer aqui.
+     Inclua também qualquer informação que não coube nas seções anteriores — nada pode ficar de fora. -->
 
 | # | Descrição | Probabilidade | Impacto | Mitigação |
 |---|-----------|---------------|---------|-----------|
 | R01 | [risco] | Alta / Média / Baixa | Alto / Médio / Baixo | [ação de mitigação] |
 
 **Pontos em aberto (bloqueadores):**
-- ⚠️ [Dimensão]: [o que falta definir] — **responsável:** [nome/papel]
+- ⚠️ [Dimensão]: [o que falta definir] — **responsável:** [nome/papel] — **prazo:** [data ou "antes de iniciar"]
+
+**Informações adicionais dos inputs:**
+<!-- Use este espaço para qualquer informação fornecida pelo usuário que não se encaixou nas seções acima.
+     Não omita nada — se existe dúvida sobre onde colocar, coloque aqui com nota de contexto. -->
 
 ---
 
