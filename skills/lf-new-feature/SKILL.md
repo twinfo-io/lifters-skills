@@ -11,27 +11,43 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
 
 ## PASSO 1 — Localizar contexto existente
 
-1. Use a ferramenta Glob para encontrar todos os arquivos `ai/specs/*/discovery.md` no projeto.
+1. Use a ferramenta Glob para encontrar todos os arquivos em `ai/specs/*/briefings/*` no projeto.
 
-   **Se NÃO existir nenhum `discovery.md`:**
-   - Informe: "Não encontrei nenhum discovery neste projeto. Vou conduzir o discovery agora antes de gerar os artefatos."
-   - Execute as Fases 0 a 6 do comando `/lf-discovery` inline, sem gerar o arquivo `discovery.md` separado.
-   - Ao finalizar o discovery inline, prossiga para o Passo 2.
-
-   **Se existir ao menos um `discovery.md`:** Liste todos os encontrados com data e nome da feature, e pergunte qual usar:
+   **Se existirem briefings:**
+   - Extraia a pasta de feature de cada resultado (o segmento entre `ai/specs/` e `/briefings/`).
+   - Agrupe os arquivos por pasta de feature.
+   - Apresente a lista numerada, agrupada por feature, mostrando os arquivos de briefing de cada uma:
    ```
-   Discoveries encontrados:
+   Briefings encontrados:
 
    [1] YYYYMMDDHHmmSS_nome_a — [YYYY-MM-DD] — [nome legível]
+       • briefing-ux.v0.md
+       • briefing-tech.v0.md
+
    [2] YYYYMMDDHHmmSS_nome_b — [YYYY-MM-DD] — [nome legível]
+       • briefing-ux.v0.md
+
    [...]
 
-   Para qual feature devo gerar o briefing técnico?
+   Para qual feature devo gerar o briefing técnico? (Digite o número)
    ```
    Aguarde a escolha do usuário.
 
-2. Leia o `discovery.md` da feature escolhida com a ferramenta Read.
-   - Leia todos os arquivos em `inputs/` da mesma pasta (use Glob + Read).
+   **Se NÃO existir nenhum briefing:** Use Glob para encontrar `ai/specs/*/discovery.md` como fallback.
+
+   - **Se existir ao menos um `discovery.md`:** Liste todos com data e nome legível e pergunte qual usar. Aguarde escolha.
+   - **Se também não existir nenhum `discovery.md`:**
+     - Informe: "Não encontrei nenhum discovery ou briefing neste projeto. Vou conduzir o discovery agora antes de gerar os artefatos."
+     - Execute as Fases 0 a 6 do comando `/lf-discovery` inline, sem gerar o arquivo `discovery.md` separado.
+     - Ao finalizar o discovery inline, prossiga para o Passo 2.
+
+2. **Carregar `discovery.md` da feature escolhida:**
+   - Componha o path: `ai/specs/<pasta-escolhida>/discovery.md`
+   - Use a ferramenta Read para carregar o arquivo.
+   - **Se o `discovery.md` não existir na pasta escolhida:**
+     - Informe: "Não encontrei discovery.md para [feature]. Vou conduzir o discovery agora."
+     - Execute as Fases 0 a 6 do `/lf-discovery` inline e prossiga.
+   - Leia também todos os arquivos em `inputs/` da mesma pasta (use Glob + Read).
 
 3. **Verificar Briefing UX/UI existente:**
    - Use Glob para verificar se existe `briefings/briefing-ux.v*.md` na mesma pasta do discovery.
