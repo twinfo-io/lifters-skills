@@ -11,28 +11,45 @@ Gere o Briefing UX/UI com o nível de detalhe e prescrição da referência can�
 
 ## PASSO 1 — Localizar contexto
 
-1. Use a ferramenta Glob para verificar se existe `ai/specs/*/discovery.md` no projeto.
+1. Use a ferramenta Glob para listar todos os diretórios em `ai/specs/*/` que contenham uma subpasta `briefings/`.
 
-   **Se NÃO existir:** Informe:
+   **Se NÃO existir nenhuma feature com pasta `briefings/`:** Informe:
    ```
-   Nenhum discovery encontrado neste projeto.
-   Execute /lf-discovery primeiro para gerar o discovery.md da feature.
+   Nenhuma feature encontrada em ai/specs/.
+   Execute /lf-discovery primeiro para criar a estrutura de uma feature.
    ```
-   E encerre — não prossiga sem um discovery.
+   E encerre.
 
-   **Se existir mais de um:** Liste os encontrados com data e nome, e pergunte qual usar.
+   **Se existir ao menos uma feature:** Liste todas as encontradas e pergunte qual usar:
+   ```
+   Features disponíveis:
 
-2. Leia o `discovery.md` encontrado com a ferramenta Read.
+   [1] YYYYMMDDHHmmSS_nome_a — [YYYY-MM-DD]
+   [2] YYYYMMDDHHmmSS_nome_b — [YYYY-MM-DD]
+   [...]
+
+   Para qual feature devo gerar o Briefing UX/UI?
+   ```
+   Aguarde a escolha do usuário.
+
+2. Verifique se a feature escolhida possui `discovery.md`.
+   - **Se NÃO existir discovery.md na feature escolhida:** Informe:
+     ```
+     ❌ discovery.md não encontrado em ai/specs/[feature escolhida]/.
+     Execute /lf-discovery primeiro para gerar o discovery desta feature.
+     ```
+     E encerre.
+   - **Se existir:** leia com a ferramenta Read.
 
 3. Leia todos os arquivos em `inputs/` da mesma pasta (use Glob + Read).
 
-4. Verifique se existe `specs/design-system.md` com a ferramenta Glob.
+4. Verifique se existe `ai/specs/design-system.md` com a ferramenta Glob.
    - **Se NÃO existir:** Informe:
      ```
-     ❌ specs/design-system.md não encontrado.
+     ❌ ai/specs/design-system.md não encontrado.
 
      O protótipo HTML requer o design system do projeto.
-     Execute /lf-design-system primeiro para gerar specs/design-system.md.
+     Execute /lf-design-system primeiro para gerar ai/specs/design-system.md.
      ```
      E encerre — não prossiga sem o design system.
    - **Se existir:** leia com Read. Use para referenciar componentes e tokens na seção 9
@@ -65,7 +82,7 @@ Vou gerar o Briefing UX/UI para: [nome da feature]
   Baseado em:
     • discovery.md ([data do discovery])
     [• inputs/input-XX.md (N arquivos)]
-    • specs/design-system.md (encontrado — será usado para tokens e protótipo HTML)
+    • ai/specs/design-system.md (encontrado — será usado para tokens e protótipo HTML)
 
   Telas identificadas no discovery: [lista resumida, se identificável]
 
@@ -125,7 +142,7 @@ Briefing UX/UI gerado ✓
   Protótipo HTML gerado ✓
     ai/specs/YYYYMMDDHHmmSS_nome/prototype/index.html
       [N] telas navegáveis · [N] estados por tela · mock data inline
-      Tokens do design system: specs/design-system.md
+      Tokens do design system: ai/specs/design-system.md
 
 [Se houver pontos em aberto:]
 Decisões de UX pendentes antes de prototipar:
@@ -144,7 +161,7 @@ Próximos passos:
 
 ## PASSO 5 — Geração do protótipo HTML
 
-Gere `ai/specs/YYYYMMDDHHmmSS_nome/prototype/index.html` como um protótipo navegável de todas as telas descritas no `briefing-ux.vN.md`, usando os tokens do design system em `specs/design-system.md`.
+Gere `ai/specs/YYYYMMDDHHmmSS_nome/prototype/index.html` como um protótipo navegável de todas as telas descritas no `briefing-ux.vN.md`, usando os tokens do design system em `ai/specs/design-system.md`.
 
 ### Fontes de dados (use apenas estas):
 
@@ -155,14 +172,14 @@ Gere `ai/specs/YYYYMMDDHHmmSS_nome/prototype/index.html` como um protótipo nave
 - **Seção 7** do briefing (Condicionalidade) → regras SE/ENTÃO de exibição
 - **Seção 8** do briefing (Conteúdo e Textos) → copy exato de todos os elementos
 - **Seção 9** do briefing (Referências Visuais) → componentes e padrões visuais
-- **`specs/design-system.md`** → tokens de cor, tipografia, espaçamento, radius, sombras
+- **`ai/specs/design-system.md`** → tokens de cor, tipografia, espaçamento, radius, sombras
 
 ### Estrutura do `index.html`:
 
 **Um único arquivo HTML autocontido** com:
 
 1. **CSS inline no `<head>`:**
-   - Bloco `:root` com todos os CSS custom properties extraídos de `specs/design-system.md` (cores, tipografia, espaçamento, border-radius, shadows)
+   - Bloco `:root` com todos os CSS custom properties extraídos de `ai/specs/design-system.md` (cores, tipografia, espaçamento, border-radius, shadows)
    - Estilos de layout, componentes e estados — sem frameworks externos
 
 2. **Body com todas as telas:** uma `<section>` por tela listada na seção 3 do briefing.

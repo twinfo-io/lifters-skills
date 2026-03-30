@@ -205,6 +205,8 @@ Com todo o contexto coletado, gere o arquivo `ai/specs/YYYYMMDDHHmmSS_nome/disco
 **Use `$CLAUDE_SKILL_DIR/templates/discovery.md` como estrutura** (leia o arquivo com a ferramenta Read antes de gerar).
 
 **Regras de qualidade:**
+- **Fidelidade total aos inputs:** todo detalhe presente nos documentos de entrada (inputs/), nas respostas do usuário nas Fases 4 e 5, e nas referências de mercado da Fase 6 DEVE aparecer no discovery.md. Nenhuma informação fornecida pelo usuário pode ser omitida, resumida a ponto de perder especificidade, ou silenciosamente descartada. Se o input menciona um valor exato, um nome de sistema, uma restrição específica ou uma decisão tomada, esse dado vai para o campo correspondente da seção adequada — não para "Notas adicionais" como fallback.
+- **Sem geração de conteúdo implícita:** campos não cobertos pelos inputs ou respostas viram `⚠️ Ponto em aberto` — jamais preenchidos com suposições, valores genéricos ou exemplos do template.
 - Todos os campos com ⚠️ Ponto em aberto devem aparecer explicitamente na seção "Lacunas e pontos em aberto"
 - As referências de mercado escolhidas devem aparecer com justificativa na seção correspondente
 - O documento deve ser suficiente para o `/new-feature` gerar specs sem precisar fazer novas perguntas
@@ -219,6 +221,69 @@ Arquivo criado: ai/specs/YYYYMMDDHHmmSS_nome/discovery.md
 
 Pontos em aberto identificados (resolver antes de iniciar):
   ⚠️ [lista de pontos em aberto, se houver]
+
+Próximo passo:
+  [Se há pontos em aberto:] Prosseguindo para a Fase 8 — resolução dos pontos em aberto.
+  [Se não há pontos em aberto:] Execute /lf-new-feature para gerar briefing, specs e work packages.
+```
+
+---
+
+## FASE 8 — Resolução dos pontos em aberto
+
+Execute esta fase **somente se** há pelo menos um `⚠️ Ponto em aberto` no `discovery.md` gerado na Fase 7.
+
+**Se não há pontos em aberto:** informe que o discovery está completo e instrua o usuário a executar `/lf-new-feature`.
+
+---
+
+### 8.1 — Apresentação dos pontos em aberto
+
+Liste todos os pontos em aberto extraídos da seção "Lacunas e pontos em aberto" do discovery.md gerado:
+
+```
+Antes de prosseguir, precisamos resolver os pontos em aberto identificados.
+Responda cada um abaixo — pode responder todos de uma vez ou um por vez:
+
+⚠️ [1] [dimensão] — [descrição do que falta definir]
+⚠️ [2] [dimensão] — [descrição]
+[...]
+
+Para cada item sem resposta agora, confirme "a definir" e prosseguiremos.
+```
+
+Aguarde as respostas do usuário.
+
+---
+
+### 8.2 — Atualização do discovery.md
+
+Para **cada ponto respondido** (não marcado como "a definir"):
+
+1. Identifique **todas as seções** do discovery.md que são afetadas pela resposta — não apenas a seção "Lacunas e pontos em aberto". Uma resposta sobre stack técnica afeta "Restrições e premissas" e "Decisões de design tomadas". Uma resposta sobre personas afeta "Usuários e papéis afetados" e "Problema e dor".
+
+2. Reescreva cada seção afetada integrando a nova informação como parte do texto corrido — não como uma nota adicionada ao final. O objetivo é que o discovery.md resultante pareça que aquela informação sempre esteve lá.
+
+3. Remova o item resolvido da seção "Lacunas e pontos em aberto". Se todos os itens foram resolvidos, substitua a seção por: `Todos os pontos em aberto foram resolvidos.`
+
+4. Pontos marcados como "a definir" permanecem na seção "Lacunas e pontos em aberto" sem alteração.
+
+---
+
+### 8.3 — Confirmação das mudanças
+
+Após atualizar o arquivo, informe:
+
+```
+discovery.md atualizado ✓
+
+Seções modificadas:
+  • [nome da seção] — [decisão integrada, em uma linha]
+  • [nome da seção] — [decisão integrada, em uma linha]
+
+Pontos resolvidos: [N de M]
+[Se ainda há pontos em aberto:]
+  Pontos que permanecem em aberto: ⚠️ [lista]
 
 Próximo passo:
   Execute /lf-new-feature para gerar briefing, specs e work packages.

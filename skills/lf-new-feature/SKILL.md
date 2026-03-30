@@ -11,25 +11,34 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
 
 ## PASSO 1 — Localizar contexto existente
 
-1. Use a ferramenta Glob para verificar se existe `ai/specs/*/discovery.md` no projeto.
+1. Use a ferramenta Glob para encontrar todos os arquivos `ai/specs/*/discovery.md` no projeto.
 
-2. **Se discovery.md existir:**
-   - Leia `discovery.md` com a ferramenta Read.
-   - Leia todos os arquivos em `inputs/` da mesma pasta (use Glob + Read).
-   - Confirme: "Encontrei o discovery de **[nome da feature]**. Vou usá-lo para gerar os artefatos."
-   - Se houver mais de um discovery recente, liste e pergunte qual usar.
-
-3. **Se discovery.md NÃO existir:**
-   - Informe: "Não encontrei um discovery prévio. Vou conduzir o discovery agora antes de gerar os artefatos."
+   **Se NÃO existir nenhum `discovery.md`:**
+   - Informe: "Não encontrei nenhum discovery neste projeto. Vou conduzir o discovery agora antes de gerar os artefatos."
    - Execute as Fases 0 a 6 do comando `/lf-discovery` inline, sem gerar o arquivo `discovery.md` separado.
    - Ao finalizar o discovery inline, prossiga para o Passo 2.
 
-4. **Verificar Briefing UX/UI existente:**
+   **Se existir ao menos um `discovery.md`:** Liste todos os encontrados com data e nome da feature, e pergunte qual usar:
+   ```
+   Discoveries encontrados:
+
+   [1] YYYYMMDDHHmmSS_nome_a — [YYYY-MM-DD] — [nome legível]
+   [2] YYYYMMDDHHmmSS_nome_b — [YYYY-MM-DD] — [nome legível]
+   [...]
+
+   Para qual feature devo gerar o briefing técnico?
+   ```
+   Aguarde a escolha do usuário.
+
+2. Leia o `discovery.md` da feature escolhida com a ferramenta Read.
+   - Leia todos os arquivos em `inputs/` da mesma pasta (use Glob + Read).
+
+3. **Verificar Briefing UX/UI existente:**
    - Use Glob para verificar se existe `briefings/briefing-ux.v*.md` na mesma pasta do discovery.
    - **Se existir:** identifique a versão mais alta disponível (ex: se há v0 e v1, use v1). Leia o arquivo com Read. Informe: "Encontrei o Briefing UX/UI (briefing-ux.v[N]). Vou usá-lo para popular personas e UX do briefing técnico."
    - **Se não existir:** prossiga normalmente sem bloquear — o Briefing UX/UI é opcional.
 
-5. **Verificar versão existente do briefing-tech:**
+4. **Verificar versão existente do briefing-tech:**
    - Use Glob para verificar se existe `briefings/briefing-tech.v*.md` na mesma pasta do discovery.
    - **Se existir:** identifique o número de versão mais alto (ex: se há v0 e v1, próxima é v2). Informe: "Já existe briefing-tech.v[N].md. Vou gerar a versão v[N+1]."
    - **Se não existir:** vou gerar v0.
