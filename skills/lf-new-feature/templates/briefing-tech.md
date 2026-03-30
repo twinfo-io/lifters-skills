@@ -136,8 +136,6 @@
 1. [Papel] DEVE [fazer X] para [contexto].
 2. O sistema NÃO DEVE [fazer Y] quando [condição].
 3. SE [condição] ENTÃO [comportamento].
-4.
-5.
 
 ---
 
@@ -259,7 +257,10 @@
 
 <!-- OBRIGATÓRIO: ≥3 riscos na tabela.
      Todos os pontos em aberto do discovery e dos inputs devem aparecer aqui.
-     Inclua também qualquer informação que não coube nas seções anteriores — nada pode ficar de fora. -->
+
+     VÁLVULA DE ESCAPE: qualquer informação dos inputs sem seção natural nas seções 1-14
+     deve ser incluída abaixo em "Informações adicionais dos inputs" com nota de contexto.
+     Nenhum item do inventário [I-XX] / [D-XX] pode ficar sem cobertura no documento. -->
 
 | # | Descrição | Probabilidade | Impacto | Mitigação |
 |---|-----------|---------------|---------|-----------|
@@ -269,8 +270,8 @@
 - ⚠️ [Dimensão]: [o que falta definir] — **responsável:** [nome/papel] — **prazo:** [data ou "antes de iniciar"]
 
 **Informações adicionais dos inputs:**
-<!-- Use este espaço para qualquer informação fornecida pelo usuário que não se encaixou nas seções acima.
-     Não omita nada — se existe dúvida sobre onde colocar, coloque aqui com nota de contexto. -->
+<!-- Incluir aqui qualquer informação fornecida pelo usuário que não se encaixou nas seções 1-14.
+     Indicar a origem: [I-XX] inputs/<arquivo> ou [D-XX] discovery.md. -->
 
 ---
 

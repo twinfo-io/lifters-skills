@@ -49,22 +49,40 @@ Gere documentos com o nível de profundidade e detalhe do exemplo de referência
      - Execute as Fases 0 a 6 do `/lf-discovery` inline e prossiga.
    - Leia também todos os arquivos em `inputs/` da mesma pasta (use Glob + Read).
 
-3. **Mapeamento obrigatório de todo o conteúdo lido:**
+3. **Inventário obrigatório — contrato de completude:**
 
-   Após ler discovery.md e todos os arquivos em `inputs/`, organize internamente **todo** o conteúdo nas categorias abaixo antes de avançar. **Nenhuma informação pode ficar sem seção destino.** Se um dado não se encaixar claramente em uma categoria, coloque-o na mais próxima com nota de contexto.
+   Antes de avançar, leia novamente cada fonte (discovery.md + cada arquivo em `inputs/`) **linha por linha** e crie um inventário numerado de **cada informação discreta**. Não pule, não agrupe, não resuma. Cada item recebe um ID único:
 
-   | Categoria | O que capturar | Seção destino |
-   |-----------|----------------|---------------|
-   | **PROBLEMA / DOR** | Dor real descrita, frequência, impacto mensurável, o que acontece se não resolver | Seção 1 |
-   | **SOLUÇÃO / TECNOLOGIA** | O que construir, tecnologia escolhida, mecanismo central de funcionamento, integrações | Seção 2 + Seção 5 |
-   | **RESTRIÇÕES / PREMISSAS** | Limites técnicos, legais, de negócio, arquiteturais — com justificativa | Seção 4 |
-   | **PESSOAS / PAPÉIS** | Quem usa, quem configura, quem é impactado indiretamente — papéis e ações | Seção 3 |
-   | **RISCOS / INCERTEZAS** | Bloqueadores, dependências externas, pontos em aberto, hipóteses não validadas | Seção 15 |
-   | **REGRAS / SEGURANÇA** | Regras de negócio identificadas, RBAC, privacidade, validações obrigatórias | Seção 7 + Seção 8 |
-   | **COMPORTAMENTO UX** | Fluxos de tela, estados, ações do usuário, erros visíveis | Seção 6 |
-   | **OPERAÇÃO** | Variáveis de ambiente mencionadas, feature flags, estratégia de deploy, rollback | Seção 11 + Seção 12 |
+   ```
+   [I-01] inputs/input-01.md: <informação exata, na linguagem do usuário>
+   [I-02] inputs/input-01.md: <próxima informação>
+   [D-01] discovery.md: <informação exata>
+   [D-02] discovery.md: <próxima informação>
+   ```
 
-   **Regra de ouro:** qualquer informação fornecida pelo usuário nos inputs ou coletada durante o discovery **deve aparecer no briefing**, seja como conteúdo de seção, seja como ponto em aberto na Seção 15. Não resuma, não omita, não parafrase de forma que perca especificidade.
+   Capturar obrigatoriamente **cada ocorrência** de:
+   - Requisitos funcionais e não-funcionais
+   - Decisões técnicas: tecnologias, bibliotecas, frameworks, padrões escolhidos
+   - Trechos ou exemplos de código fornecidos pelo usuário (copiar literalmente)
+   - Estruturas de dados, nomes de tabelas, campos, entidades, tipos
+   - Nomes de módulos, serviços, componentes, endpoints, rotas citados
+   - Restrições e premissas — com a justificativa exata fornecida
+   - Regras de negócio — cada regra como item separado
+   - Fluxos — cada etapa de cada fluxo como item separado
+   - Variáveis de ambiente, chaves, configurações mencionadas
+   - Boas práticas e padrões de código citados pelo usuário
+   - Casos de erro, edge cases, comportamentos excepcionais mencionados
+   - Pontos em aberto e dúvidas levantadas
+   - Dados numéricos: limites, thresholds, prazos, quantidades
+   - Nomenclaturas específicas usadas pelo usuário (preserve o nome exato)
+
+   **Este inventário é o CONTRATO DE COMPLETUDE.** Cada item `[I-XX]` / `[D-XX]` DEVE aparecer explicitamente no briefing gerado — não como inferência, mas como conteúdo real.
+
+   Apresente ao usuário:
+   ```
+   Inventário concluído: [N] itens identificados nos inputs.
+   Todos serão incluídos no briefing-tech.
+   ```
 
 4. **Verificar Briefing UX/UI existente:**
    - Use Glob para verificar se existe `briefings/briefing-ux.v*.md` na mesma pasta do discovery.
@@ -125,9 +143,16 @@ Gere `ai/specs/YYYYMMDDHHmmSS_nome/briefings/briefing-tech.v[N].md` onde N é a 
 
 Se o `briefing-ux.vN.md` não foi encontrado no Passo 1, omitir a linha correspondente.
 
-**Regra fundamental — fidelidade total aos inputs:**
+**Geração orientada pelo inventário:**
 
-Toda informação lida no discovery.md, nos arquivos de `inputs/` e qualquer contexto fornecido pelo usuário ao chamar o skill DEVE aparecer no briefing gerado. Não sumarize de forma que perca especificidade. Não omita dados técnicos, nomes de sistemas, valores, restrições ou decisões mencionadas. Se algo não couber em nenhuma seção principal, coloque na Seção 15 (Riscos e Pontos em Aberto) com nota de contexto.
+Gere seção por seção. Para cada seção, percorra explicitamente os itens do inventário `[I-XX]` / `[D-XX]` que pertencem a ela e incorpore cada um. Regras de incorporação:
+
+- **Use o nome exato** que o usuário usou para módulos, tabelas, endpoints, variáveis — nunca renomeie.
+- **Trechos de código fornecidos nos inputs** devem aparecer literalmente em blocos de código na seção correspondente, não parafraseados.
+- **Regras enunciadas com precisão** devem ser transcritas com a mesma precisão, não resumidas.
+- **Fluxos detalhados nos inputs** devem ter cada etapa representada no diagrama ou na descrição — não colapse etapas.
+- Marque mentalmente cada item como "incluído" conforme avança nas seções.
+- Se um item não couber em nenhuma das seções 1-14, inclua na Seção 15 com uma nota indicando a origem (`[I-XX]` ou `[D-XX]`).
 
 **Regras de qualidade por seção:**
 
@@ -153,20 +178,21 @@ Toda informação lida no discovery.md, nos arquivos de `inputs/` e qualquer con
 
 ## PASSO 4 — Verificação de completude e confirmação final
 
-**Antes de apresentar o resultado**, verifique internamente cada item abaixo. Se algum falhar, complete a seção correspondente antes de prosseguir:
+**Verificação cruzada obrigatória pelo inventário:**
 
+Antes de apresentar o resultado, percorra o inventário completo gerado no Passo 1, item 3. Para cada item `[I-XX]` / `[D-XX]`:
+
+1. Localize onde ele aparece no briefing gerado.
+2. Se não estiver explicitamente presente como conteúdo (não como inferência): adicione à seção mais adequada ou à Seção 15 com nota de origem.
+3. Só avance para a confirmação final após garantir cobertura de **100% dos itens do inventário**.
+
+Verificações adicionais de integridade:
 ```
-[ ] Todo conteúdo do discovery.md foi distribuído nas seções — nenhum dado omitido?
-[ ] Todo conteúdo dos arquivos em inputs/ foi incorporado nas seções correspondentes?
-[ ] Seção 1: ≥2 problemas concretos com impacto mensurável e sistema/componente nomeado?
-[ ] Seção 4: ≥5 premissas/restrições com justificativa?
-[ ] Seção 5: diagrama ASCII presente? tabela de dados com ≥5 campos? tabela de endpoints com ≥3 rotas?
-[ ] Seção 7: ≥5 regras no formato DEVE/NÃO DEVE/SE...ENTÃO?
-[ ] Seção 9: ≥5 cenários de erro na tabela?
-[ ] Seção 10: ≥3 eventos, ≥2 métricas, ≥1 alerta — nenhuma subseção vazia?
-[ ] Seção 11: bloco .env com todas as variáveis identificadas (nenhuma faltando)?
-[ ] Seção 15: ≥3 riscos + todos os pontos em aberto do discovery?
-[ ] Nenhuma seção tem conteúdo de placeholder (ex: "[descrever aqui]", tabela com linhas vazias)?
+[ ] Nenhuma seção tem linha de placeholder vazia (tabela sem linhas, "[descrever aqui]")?
+[ ] Todos os nomes de tabelas, endpoints, variáveis usam a nomenclatura exata dos inputs?
+[ ] Todos os trechos de código fornecidos nos inputs aparecem em blocos de código?
+[ ] Seção 11: cada variável de ambiente citada nos inputs está no bloco .env?
+[ ] Seção 15: cada ponto em aberto do discovery tem responsável/prazo indicado?
 ```
 
 Após gerar o arquivo, analise se o `briefing-tech.v[N].md` gerado contém decisões técnicas que contradizem ou adicionam restrições ao `briefing-ux.vN.md` existente (se houver). Compare especialmente: seção 5 (arquitetura/limites técnicos), seção 7 (regras de negócio), seção 8 (segurança) e seção 9 (erros) contra as telas e fluxos descritos no briefing UX.
