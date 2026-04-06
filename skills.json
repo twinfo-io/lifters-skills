@@ -1,6 +1,6 @@
 {
   "name": "lifters-skills",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "AI-native product development skills for Lifters teams",
   "author": "twinfo-io",
   "repository": "https://github.com/twinfo-io/lifters-skills",
@@ -39,6 +39,36 @@
       "name": "lf-exec",
       "description": "Starts the execution of a specific work package (WP-XX) from a generated wps.md. Interactively lists available spec folders under specs/ and pending work packages (excluding completed ones), guides through project update and branch creation (features/initials/semantic_name or current branch), then fires the execution prompt for the selected WP. No arguments required.",
       "file": "skills/lf-exec/SKILL.md",
+      "scope": "user"
+    },
+    {
+      "name": "lf-git-sync",
+      "description": "Pulls and synchronizes all git submodules with their remotes. Detects the git root, lists all submodules, pulls the main repo, then for each submodule: pulls if on a tracked branch or runs git submodule update if in detached HEAD state. Handles merge conflicts, network errors, and missing remotes gracefully. Shows a before/after summary with branch and commit state per repo. Use when you need to sync a monorepo with submodules after a teammate pushed changes.",
+      "file": "skills/lf-git-sync/SKILL.md",
+      "scope": "user"
+    },
+    {
+      "name": "lf-git-status",
+      "description": "Consolidated git status view across the main repo and all submodules. Shows branch, ahead/behind remote, and dirty/clean state for every repo in a single scannable report. Flags issues: detached HEAD, local-only commits, diverged branches, and pointer mismatches between main repo and submodules. Use instead of running git status in each submodule manually.",
+      "file": "skills/lf-git-status/SKILL.md",
+      "scope": "user"
+    },
+    {
+      "name": "lf-git-branch",
+      "description": "Creates a new git branch across the main repo and selected submodules. Accepts the branch name as argument or asks interactively. Lists all submodules and lets the user select all or specific ones. Creates from current HEAD or a specified base ref. Optionally pushes to remote. Shows a confirmation plan before executing. Use when starting a new feature that spans multiple submodules.",
+      "file": "skills/lf-git-branch/SKILL.md",
+      "scope": "user"
+    },
+    {
+      "name": "lf-git-checkout",
+      "description": "Switches branches across the main repo and all submodules. Accepts the branch name as argument or lists available branches interactively. Shows which submodules have the target branch vs which will be aligned via git submodule update. Detects uncommitted changes and offers stash per submodule. Confirms before executing. Use when switching feature branches in a monorepo with submodules.",
+      "file": "skills/lf-git-checkout/SKILL.md",
+      "scope": "user"
+    },
+    {
+      "name": "lf-git-push",
+      "description": "Pushes commits safely in the correct order: submodules first, then the main repo. Checks which repos have unpushed commits, shows a push plan with the commit list per repo, confirms before executing, and stops immediately on failure to avoid broken references in the remote. Use instead of pushing manually to prevent 'submodule not pushed' errors on the main repo.",
+      "file": "skills/lf-git-push/SKILL.md",
       "scope": "user"
     }
   ]

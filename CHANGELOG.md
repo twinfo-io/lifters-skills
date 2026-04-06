@@ -7,6 +7,46 @@ versionamento segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [3.0.0] - 2026-04-05
+
+### Added
+
+- `/lf-git-sync` — sincroniza o repositório principal e todos os submodules com o
+  remoto. Detecta automaticamente se cada submodule está em branch rastreada
+  (fetch + pull) ou HEAD detached (submodule update). Exibe resumo antes/depois
+  com estado de cada repo. Trata conflitos de merge, divergência, erros de rede
+  e submodules não inicializados graciosamente.
+
+- `/lf-git-status` — relatório consolidado de status de todos os repos do monorepo
+  em uma única leitura. Detecta: HEAD detached, branches divergidas (ahead/behind),
+  arquivos sujos, divergência de ponteiro submodule vs. repo principal, submodules
+  não inicializados. Output com símbolos visuais e seção de issues agrupados.
+
+- `/lf-git-branch` — cria branch em múltiplos repositórios simultaneamente.
+  Aceita nome como argumento ou pergunta interativamente. Permite selecionar
+  todos os submodules ou específicos. Suporta base customizada (branch, tag,
+  commit). Confirmação antes de executar. Push opcional para remoto.
+
+- `/lf-git-checkout` — troca de branch no repositório principal e nos submodules
+  que possuem a branch destino. Submodules sem a branch são alinhados via
+  `git submodule update`. Detecta modificações não commitadas e oferece stash
+  automático por submodule. Confirmação antes de executar.
+
+- `/lf-git-push` — push seguro na ordem correta: submodules primeiro, repositório
+  principal por último. Inspeciona commits pendentes, exibe plano com lista de
+  commits por repo, para imediatamente em caso de falha para evitar referências
+  quebradas. Trata first push, push rejeitado por divergência e HEAD detached.
+
+- `skills/lf-git-*/SKILL.md` — 5 arquivos de instrução, um por skill.
+
+- `skills.json`: versão atualizada para `3.0.0`. 5 novas entradas adicionadas
+  após `lf-exec`.
+
+- `CLAUDE.md`: nova seção "Git Submodule Skills" com documentação de todos os
+  5 comandos. Árvore de diretórios atualizada.
+
+---
+
 ## [2.2.0] - 2026-03-27
 
 ### Added

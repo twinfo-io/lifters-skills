@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `lifters-skills` is the central repository of Claude Code skills for Lifters teams. It serves two purposes:
 
-1. **Skills distribution** — Claude Code commands (`/lf-discovery`, `/lf-briefing-ux`, `/lf-new-feature`, `/lf-specs`, `/lf-design-system`) installed company-wide via `npx skills add twinfo-io/lifters-skills`, available in every project on the developer's machine.
+1. **Skills distribution** — Claude Code commands (`/lf-discovery`, `/lf-briefing-ux`, `/lf-new-feature`, `/lf-specs`, `/lf-design-system`, `/lf-git-sync`, `/lf-git-status`, `/lf-git-branch`, `/lf-git-checkout`, `/lf-git-push`) installed company-wide via `npx skills add twinfo-io/lifters-skills`, available in every project on the developer's machine.
 
 2. **Specification workspace** — Houses the `ai/specs/` directory where feature specs for this repository itself are maintained.
 
@@ -78,6 +78,59 @@ Connects to Figma via MCP Server, extracts all design tokens (typography, colors
 
 Output: `specs/design-system.md`
 
+## Git Submodule Skills
+
+Skills para gerenciar monorepos com git submodules. Todas detectam automaticamente os submodules via `git submodule status` e confirmam antes de executar operações. Compatíveis com Claude Code, Cursor e Codex.
+
+### `/lf-git-sync`
+
+Sincroniza o repositório principal e todos os submodules com o remoto. Para submodules em uma branch rastreada, executa `fetch + pull`. Para submodules em HEAD detached, executa `git submodule update --remote`. Exibe um resumo antes/depois com o estado de cada repositório.
+
+```
+/lf-git-sync
+```
+
+Casos tratados: conflito de merge, divergência de branches, submodules não inicializados, erros de rede, divergência de ponteiro.
+
+### `/lf-git-status`
+
+Relatório consolidado de status de todos os repositórios do monorepo em uma única leitura. Exibe branch, ahead/behind do remoto, arquivos modificados/staged/não rastreados e detecta: HEAD detached, branches divergidas, divergência de ponteiro submodule vs. repo principal, submodules não inicializados.
+
+```
+/lf-git-status
+```
+
+Output: relatório no terminal com símbolos visuais (✓ limpo, `*` modificado, ⚠️ aviso, ❌ erro) e seção de issues agrupados.
+
+### `/lf-git-branch [branch-name]`
+
+Cria uma nova branch no repositório principal e nos submodules selecionados. Lista os submodules e permite selecionar todos ou específicos. Suporta criação a partir do HEAD atual ou de uma ref específica (branch, tag ou commit). Opcionalmente faz push para o remoto.
+
+```
+/lf-git-branch feature/pagamento-pix
+/lf-git-branch   # sem argumento — pergunta o nome interativamente
+```
+
+### `/lf-git-checkout [branch-name]`
+
+Troca de branch no repositório principal e nos submodules que possuem a branch destino. Submodules sem a branch são alinhados via `git submodule update` ao commit registrado pelo principal (HEAD detached — comportamento correto do git). Detecta modificações não commitadas e oferece stash automático por submodule.
+
+```
+/lf-git-checkout main
+/lf-git-checkout feature/xpto
+/lf-git-checkout   # sem argumento — lista branches disponíveis
+```
+
+### `/lf-git-push`
+
+Envia commits na ordem correta: submodules primeiro, repositório principal por último — prevenindo o erro "submodule not pushed". Inspeciona quais repos têm commits pendentes, exibe o plano de push com a lista de commits por repositório, confirma antes de executar, e para imediatamente em caso de falha para não deixar o monorepo em estado inconsistente.
+
+```
+/lf-git-push
+```
+
+Casos tratados: first push (sem upstream), push rejeitado por divergência, HEAD detached em submodules, repositórios sem remote configurado.
+
 ## Repository Structure
 
 ```
@@ -105,10 +158,20 @@ lifters-skills/
 │   │       ├── briefing-tech.md  ← 16-section technical briefing template (with Figma refs)
 │   │       ├── specs.md          ← 12-section SPEC-XX template
 │   │       └── wps.md            ← Wp-XX fields and sections template
-│   └── lf-design-system/
-│       ├── SKILL.md     ← /lf-design-system skill (frontmatter + instructions)
-│       └── templates/
-│           └── design-system.md  ← 15-section design system template
+│   ├── lf-design-system/
+│   │   ├── SKILL.md     ← /lf-design-system skill (frontmatter + instructions)
+│   │   └── templates/
+│   │       └── design-system.md  ← 15-section design system template
+│   ├── lf-git-sync/
+│   │   └── SKILL.md     ← /lf-git-sync skill
+│   ├── lf-git-status/
+│   │   └── SKILL.md     ← /lf-git-status skill
+│   ├── lf-git-branch/
+│   │   └── SKILL.md     ← /lf-git-branch skill
+│   ├── lf-git-checkout/
+│   │   └── SKILL.md     ← /lf-git-checkout skill
+│   └── lf-git-push/
+│       └── SKILL.md     ← /lf-git-push skill
 └── ai/specs/            ← feature specs for this repository
     └── 20260323142630_google_docs/   ← canonical reference (do not modify)
 ```
